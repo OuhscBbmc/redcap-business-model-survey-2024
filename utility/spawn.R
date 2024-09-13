@@ -17,7 +17,7 @@ if ("utility" != sub("^.+/(.+)$", "\\1", getwd()))  {
 }
 
 # Copy remote files to the current repo.
-pluripotent::start_cdw_skeleton_1(
+pluripotent::start_r_analysis_skeleton(
   project_name          = project_name,
   destination_directory = project_parent_path
 )
