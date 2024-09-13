@@ -10,4 +10,4 @@ Other information is available at:
 
 To reproduce the analyses in this repo,
 please save the latest dataset to
-[`data-unshared/raw/redcap-business-models-institutional.csv`](https://github.com/OuhscBbmc/redcap-business-model-survey-2024/tree/main/data-unshared)
+[`data-unshared/raw/institution.csv`](https://github.com/OuhscBbmc/redcap-business-model-survey-2024/tree/main/data-unshared)

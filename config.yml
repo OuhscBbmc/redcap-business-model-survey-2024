@@ -1,14 +1,11 @@
 default:
   # To be processed by Ellis lanes
-  path_subject_1_raw:       "data-public/raw/subject-1.csv"
-  path_mlm_1_raw:           "data-public/raw/mlm-1.csv"
-
-  path_car_raw:             "data-public/raw/mtcar.csv"
+  path_institution_raw:     "data-unshared/raw/institution.csv"
 
   path_ss_county:           "data-public/metadata/ss-county.csv"
 
   # Central Database (produced by Ellis lanes).
-  path_database:            "data-public/derived/db.sqlite3"
+  # path_database:            "data-public/derived/db.sqlite3"
 
   # Derived Rectangles (produced by Ellis lanes).
 
