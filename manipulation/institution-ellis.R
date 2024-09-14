@@ -275,7 +275,6 @@ ds <-
   tibble::rowid_to_column("instituion_index") # Add a unique index if necessary
 
 # ---- groom-institution-1 -----------------------------------------------------
-
 ds <-
   ds |>
   dplyr::mutate(
@@ -293,7 +292,7 @@ ds <-
   dplyr::mutate(
     inst1_complete  = REDCapR::constant_to_form_completion(inst1_complete),
   ) |>
-  dplyr::select(tidyselect::starts_with("inst1_")) |>
+  # dplyr::select(tidyselect::starts_with("inst1_")) |>
   dplyr::select(
     -inst1_country,
   ) #|>  View()
@@ -301,11 +300,26 @@ ds <-
 
 # ---- verify-values -----------------------------------------------------------
 # OuhscMunge::verify_value_headstart(ds)
-checkmate::assert_integer(  ds$subject_id , any.missing=F , lower=1001, upper=1200 , unique=T)
-checkmate::assert_integer(  ds$county_id  , any.missing=F , lower=1, upper=77     )
-checkmate::assert_numeric(  ds$gender_id  , any.missing=F , lower=1, upper=255     )
-checkmate::assert_character(ds$race       , any.missing=F , pattern="^.{5,41}$"    )
-checkmate::assert_character(ds$ethnicity  , any.missing=F , pattern="^.{18,30}$"   )
+checkmate::assert_integer(  ds$instituion_index       , any.missing=F , lower=1, upper=999  , unique=T)
+checkmate::assert_integer(  ds$inst1_program_status   , any.missing=T , lower=2, upper=5    )
+checkmate::assert_integer(  ds$inst1_program_growth   , any.missing=T , lower=2, upper=5    )
+checkmate::assert_factor(   ds$inst1_program_model    , any.missing=T                       )
+checkmate::assert_character(ds$inst1_program_funding  , any.missing=T , pattern="^.{1,7}$"  )
+checkmate::assert_integer(  ds$inst1_dept_home        , any.missing=T , lower=1, upper=98   )
+checkmate::assert_integer(  ds$inst1_admin_total      , any.missing=T , lower=1, upper=25   )
+checkmate::assert_numeric(  ds$inst1_admin_total_fte  , any.missing=T , lower=0, upper=20   )
+checkmate::assert_numeric(  ds$inst1_admin_server     , any.missing=T , lower=0, upper=10   )
+checkmate::assert_numeric(  ds$inst1_admin_server_fte , any.missing=T , lower=0, upper=10   )
+checkmate::assert_numeric(  ds$inst1_admin_user       , any.missing=T , lower=1, upper=20   )
+checkmate::assert_numeric(  ds$inst1_admin_user_fte   , any.missing=T , lower=0, upper=20   )
+checkmate::assert_numeric(  ds$inst1_admin_code       , any.missing=T , lower=0, upper=10   )
+checkmate::assert_numeric(  ds$inst1_admin_coding_fte , any.missing=T , lower=0, upper=10   )
+checkmate::assert_character(ds$inst1_salary_entry     , any.missing=T , pattern="^.{1,100}$" )
+checkmate::assert_character(ds$inst1_salary_mid       , any.missing=T , pattern="^.{1,100}$" )
+checkmate::assert_character(ds$inst1_salary_senior    , any.missing=T , pattern="^.{1,100}$" )
+checkmate::assert_logical(  ds$inst1_county_usa       , any.missing=F                       )
+checkmate::assert_character(ds$inst1_country_cut3     , any.missing=F , pattern="^.{3,9}$"  )
+checkmate::assert_factor(   ds$inst1_complete         , any.missing=F                       )
 
 # ---- specify-columns-to-upload -----------------------------------------------
 # Print colnames that `dplyr::select()`  should contain below:
@@ -318,11 +332,26 @@ ds_slim <-
   ds |>
   # dplyr::slice(1:100) |>
   dplyr::select(
-    subject_id,
-    county_id,
-    gender_id,
-    race,
-    ethnicity,
+    instituion_index,
+    inst1_program_status,
+    inst1_program_growth,
+    inst1_program_model,
+    inst1_program_funding,
+    inst1_dept_home,
+    inst1_admin_total,
+    inst1_admin_total_fte,
+    inst1_admin_server,
+    inst1_admin_server_fte,
+    inst1_admin_user,
+    inst1_admin_user_fte,
+    inst1_admin_code,
+    inst1_admin_coding_fte,
+    inst1_salary_entry,
+    inst1_salary_mid,
+    inst1_salary_senior,
+    inst1_county_usa,
+    inst1_country_cut3,
+    inst1_complete,
   )
 
 ds_slim
@@ -330,64 +359,5 @@ ds_slim
 # ---- save-to-disk ------------------------------------------------------------
 # If there's no PHI, a rectangular CSV is usually adequate, and it's portable to other machines and software.
 # readr::write_csv(ds_slim, path_out_unified)
-# readr::write_rds(ds_slim, path_out_unified, compress="gz") # Save as a compressed R-binary file if it's large or has a lot of factors.
+arrow::write_parquet(ds_slim, config$path_institution_derived)
 
-
-# ---- save-to-db --------------------------------------------------------------
-# If a database already exists, this single function uploads to a SQL Server database.
-# OuhscMunge::upload_sqls_odbc(
-#   d             = ds_slim,
-#   schema_name   = "skeleton",         # Or config$schema_name,
-#   table_name    = "subject",
-#   dsn_name      = "skeleton-example", # Or config$dsn_qqqqq,
-#   timezone      = config$time_zone_local, # Uncomment if uploading non-UTC datetimes
-#   clear_table   = T,
-#   create_table  = F
-# ) # 0.012 minutes
-
-
-# If there's no PHI, a local database like SQLite fits a nice niche if
-#   * the data is relational and
-#   * later, only portions need to be queried/retrieved at a time (b/c everything won't need to be loaded into R's memory)
-# cat(dput(colnames(ds)), sep = "\n")
-sql_create <- c(
-  "
-    DROP TABLE if exists subject;
-  ",
-  "
-    CREATE TABLE `subject` (
-      subject_id      integer  not null primary key,
-      county_id       integer  not null,
-      gender_id       integer  not null,
-      race            integer  not null,
-      ethnicity       integer  not null
-    );
-  "
-)
-
-# Remove old DB
-# if( file.exists(path_db) ) file.remove(path_db)
-
-# Create directory if necessary.
-if (fs::dir_exists(fs::path_dir(path_db)))
-  fs::dir_create(fs::path_dir(path_db))
-
-# Open connection
-cnn <- DBI::dbConnect(drv = RSQLite::SQLite(), dbname = path_db)
-result <- DBI::dbSendQuery(cnn, "PRAGMA foreign_keys=ON;") #This needs to be activated each time a connection is made. #http://stackoverflow.com/questions/15301643/sqlite3-forgets-to-use-foreign-keys
-DBI::dbClearResult(result)
-DBI::dbListTables(cnn)
-
-# Create tables
-sql_create |>
-  purrr::walk(~DBI::dbExecute(cnn, .))
-DBI::dbListTables(cnn)
-
-# Write to database
-DBI::dbWriteTable(cnn, name="subject",            value=ds_slim,        append=TRUE, row.names=FALSE)
-
-# Allow database to optimize its internal arrangement
-DBI::dbExecute(cnn, "VACUUM;")
-
-# Close connection
-DBI::dbDisconnect(cnn)
