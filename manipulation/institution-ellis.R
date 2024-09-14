@@ -165,23 +165,23 @@ ds <-
   dplyr::select(
     inst1_country                                       = `country`,
     # inst1_region                                        = `st_region`,
-    # inst1_program_status                                = `program_status`,
-    # inst1_program_growth                                = `program_growth`,
+    inst1_program_status                                = `program_status`,
+    inst1_program_growth                                = `program_growth`,
     inst1_program_model                                 = `program_model`,
     inst1_program_funding                               = `program_funding`,
     inst1_dept_home                                     = `support_type`,
-    # inst1_admin_total                                   = `totaladmin`,
-    # inst1_admin_total_fte                               = `total_fte`,
-    # inst1_admin_server                                  = `admin_server`,
-    # inst1_admin_server_fte                              = `admin_server_fte`,
-    # inst1_admin_user                                    = `admin_user`,
-    # inst1_admin_user_fte                                = `admin_user_fte`,
-    # inst1_admin_code                                    = `admin_code`,
-    # inst1_admin_coding_fte                              = `admin_coding_fte`,
-    # inst1_salary_entry                                  = `sal_entry`,
-    # inst1_salary_mid                                    = `sal_mid`,
-    # inst1_salary_senior                                 = `sal_sen`,
-    # inst1_complete                                      = `institutional_questionnaire_complete`,
+    inst1_admin_total                                   = `totaladmin`,
+    inst1_admin_total_fte                               = `total_fte`,
+    inst1_admin_server                                  = `admin_server`,
+    inst1_admin_server_fte                              = `admin_server_fte`,
+    inst1_admin_user                                    = `admin_user`,
+    inst1_admin_user_fte                                = `admin_user_fte`,
+    inst1_admin_code                                    = `admin_code`,
+    inst1_admin_coding_fte                              = `admin_coding_fte`,
+    inst1_salary_entry                                  = `sal_entry`,
+    inst1_salary_mid                                    = `sal_mid`,
+    inst1_salary_senior                                 = `sal_sen`,
+    inst1_complete                                      = `institutional_questionnaire_complete`,
     # redcap_instance_count                               = `redcap_instance_count`,
     # redcap_pop                                          = `redcap_pop`,
     # redcap_start_date                                   = `redcap_start_date`,
@@ -327,28 +327,29 @@ map_to_label <- function(
   d[[.variable]]  <- as.character(d[[.variable]])
 
   # browser()
-  by <- rlang::set_names(x = "value", nm = ".variable_old")
+  by <- rlang::set_names(x = "value", nm = .variable)
   d_lu <-
     d_lu |>
     dplyr::select(
       value,
-      !!.variable := label,
+      variable_new = label,
     )
 
   d |>
-    dplyr::rename(
-     .variable_old = !!.variable
-    ) |>
+    # dplyr::rename(
+    #  .variable_old = !!.variable
+    # ) |>
     dplyr::left_join(d_lu, by = by) |>
+    dplyr::mutate(
+      !!.variable := variable_new, # This preserves the order of the variable within the dataset
+    ) |>
     dplyr::select(
-      -.variable_old,
+      -variable_new,
     )
 }
 
-ds |>
-  map_to_label("inst1_program_model") #|> View()
 
-# ds <-
+ds <-
   ds |>
   dplyr::mutate(
     inst1_county_usa    = dplyr::if_else(inst1_country == 4L, TRUE, FALSE, missing = NA),
@@ -361,6 +362,7 @@ ds |>
         .default  = "Other" # As of Sept 2024, all other countries are <=10
       )
   ) |>
+  map_to_label("inst1_program_model") |>
   dplyr::mutate(
     inst1_complete  = REDCapR::constant_to_form_completion(inst1_complete),
   ) |>
