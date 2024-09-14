@@ -2,6 +2,7 @@ rm(list = ls(all.names = TRUE)) # Clear the memory of variables from previous ru
 
 # ---- load-sources ------------------------------------------------------------
 # Call `base::source()` on any repo file that defines functions needed below.  Ideally, no real operations are performed.
+base::source("manipulation/retrieve-variable-labels.R")
 
 # ---- load-packages -----------------------------------------------------------
 # Attach these packages so their functions don't need to be qualified: http://r-pkgs.had.co.nz/namespace.html#search-path
@@ -12,12 +13,9 @@ rm(list = ls(all.names = TRUE)) # Clear the memory of variables from previous ru
 # Verify these packages are available on the machine, but their functions need to be qualified: http://r-pkgs.had.co.nz/namespace.html#search-path
 requireNamespace("readr"        )
 requireNamespace("tidyr"        )
+requireNamespace("arrow"        )
 requireNamespace("dplyr"        ) # Avoid attaching dplyr, b/c its function names conflict with a lot of packages (esp base, stats, and plyr).
-requireNamespace("rlang"        ) # Language constructs, like quosures
 requireNamespace("checkmate"    ) # For asserting conditions meet expected patterns/conditions. # remotes::install_github("mllg/checkmate")
-requireNamespace("DBI"          ) # Database-agnostic interface
-requireNamespace("RSQLite"      ) # Lightweight database for non-PHI data.
-# requireNamespace("odbc"         ) # For communicating with SQL Server over a locally-configured DSN.  Uncomment if you use 'upload-to-db' chunk.
 requireNamespace("OuhscMunge"   ) # remotes::install_github(repo="OuhscBbmc/OuhscMunge")
 
 # ---- declare-globals ---------------------------------------------------------
@@ -277,77 +275,6 @@ ds <-
   tibble::rowid_to_column("instituion_index") # Add a unique index if necessary
 
 # ---- groom-institution-1 -----------------------------------------------------
-map_to_label <- function(
-  d,                               # the primary client table
-  .variable,
-  .category = .variable
-) {
-  checkmate::assert_tibble(   d)
-  checkmate::assert_character(.variable       , len = 1, any.missing = FALSE)
-  checkmate::assert_character(.category       , len = 1, any.missing = FALSE)
-  # checkmate::assert_character(.var_out        , len = 1, any.missing = FALSE)
-  # checkmate::assert_integer(  .year           , len = 1, any.missing = FALSE, lower = 2003, upper = 2021)
-  # checkmate::assert_character(.var_in         , len = 1, any.missing = FALSE)
-  # checkmate::assert_character(.response_name  , len = 1, any.missing = FALSE)
-
-  d_lu <-
-    config$path_variable_label_derived |>
-    arrow::read_parquet() |>
-    # dplyr::rename(
-    #   variable  = !!.variable
-    # ) |>
-    dplyr::filter(category == .category)
-
-  level_order <-
-    d_lu |>
-    dplyr::arrange(display_order) |>
-    dplyr::pull(label) |>
-    unique()
-
-
-  d_lu <-
-    d_lu |>
-    dplyr::mutate(
-      label = factor(label, levels = level_order),
-    ) |>
-    dplyr::select(-display_order)
-
-  missing_levels <-
-    base::setdiff(
-      unique(na.omit(d[[.variable]])),
-      d_lu$value
-    )
-
-  if (1L <= length(missing_levels)) {
-    stop(
-      "The following levels in the dataset are missing in the lookup table:\n  ",
-      paste(missing_levels, collapse = ";"), "."
-    )
-  }
-  d[[.variable]]  <- as.character(d[[.variable]])
-
-  # browser()
-  by <- rlang::set_names(x = "value", nm = .variable)
-  d_lu <-
-    d_lu |>
-    dplyr::select(
-      value,
-      variable_new = label,
-    )
-
-  d |>
-    # dplyr::rename(
-    #  .variable_old = !!.variable
-    # ) |>
-    dplyr::left_join(d_lu, by = by) |>
-    dplyr::mutate(
-      !!.variable := variable_new, # This preserves the order of the variable within the dataset
-    ) |>
-    dplyr::select(
-      -variable_new,
-    )
-}
-
 
 ds <-
   ds |>
@@ -362,7 +289,7 @@ ds <-
         .default  = "Other" # As of Sept 2024, all other countries are <=10
       )
   ) |>
-  map_to_label("inst1_program_model") |>
+  map_to_label("inst1_program_model") |> # defined in manipulation/retrieve-variable-labels.R
   dplyr::mutate(
     inst1_complete  = REDCapR::constant_to_form_completion(inst1_complete),
   ) |>
