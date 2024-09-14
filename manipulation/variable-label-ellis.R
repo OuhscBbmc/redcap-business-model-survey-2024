@@ -28,10 +28,10 @@ config                         <- config::get()
 #   OuhscMunge::readr_spec_aligned(config$path_variable_label_raw)
 
 col_types <- readr::cols_only(
-  `category`    = readr::col_character(),
-  `value`       = readr::col_character(),
-  `label`       = readr::col_character(),
-  `order`       = readr::col_double()
+  `category`          = readr::col_character(),
+  `value`             = readr::col_character(),
+  `label`             = readr::col_character(),
+  `display_order`     = readr::col_double()
   # `comment`     = readr::col_character()
 )
 
@@ -50,15 +50,15 @@ ds <-
     category,
     value,
     label,
-    order,
+    display_order,
   )
 
 # ---- verify-values -----------------------------------------------------------
 # OuhscMunge::verify_value_headstart(ds)
-checkmate::assert_character(ds$category , any.missing=F , pattern="^.{2,50}$" )
-checkmate::assert_character(ds$value    , any.missing=F , pattern="^.{1,10}$" )
-checkmate::assert_character(ds$label    , any.missing=F , pattern="^.{1,100}$")
-checkmate::assert_numeric(  ds$order    , any.missing=F , lower=0, upper=98)
+checkmate::assert_character(ds$category       , any.missing=F , pattern="^.{2,50}$" )
+checkmate::assert_character(ds$value          , any.missing=F , pattern="^.{1,10}$" )
+checkmate::assert_character(ds$label          , any.missing=F , pattern="^.{1,100}$")
+checkmate::assert_numeric(  ds$display_order  , any.missing=F , lower=0, upper=98)
 
 # Assert the combination is unique
 combo <- paste0(ds$category, "---", ds$value)
@@ -78,7 +78,7 @@ ds_slim <-
     category,
     value,
     label,
-    order,
+    display_order,
   )
 
 ds_slim

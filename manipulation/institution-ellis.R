@@ -154,9 +154,9 @@ col_types <- readr::cols_only(
 # ---- load-data ---------------------------------------------------------------
 # Read the CSVs
 ds <- readr::read_csv(config$path_institution_raw  , col_types=col_types)
-
 # readr::problems(ds)
 rm(col_types)
+
 
 # ---- tweak-data --------------------------------------------------------------
 # OuhscMunge::column_rename_headstart(ds) # Help write `dplyr::select()` call.
@@ -165,111 +165,111 @@ ds <-
   dplyr::select(
     inst1_country                                       = `country`,
     # inst1_region                                        = `st_region`,
-    inst1_program_status                                = `program_status`,
-    inst1_program_growth                                = `program_growth`,
+    # inst1_program_status                                = `program_status`,
+    # inst1_program_growth                                = `program_growth`,
     inst1_program_model                                 = `program_model`,
     inst1_program_funding                               = `program_funding`,
     inst1_dept_home                                     = `support_type`,
-    inst1_admin_total                                   = `totaladmin`,
-    inst1_admin_total_fte                               = `total_fte`,
-    inst1_admin_server                                  = `admin_server`,
-    inst1_admin_server_fte                              = `admin_server_fte`,
-    inst1_admin_user                                    = `admin_user`,
-    inst1_admin_user_fte                                = `admin_user_fte`,
-    inst1_admin_code                                    = `admin_code`,
-    inst1_admin_coding_fte                              = `admin_coding_fte`,
-    inst1_salary_entry                                  = `sal_entry`,
-    inst1_salary_mid                                    = `sal_mid`,
-    inst1_salary_senior                                 = `sal_sen`,
-    inst1_complete                                      = `institutional_questionnaire_complete`,
-    redcap_instance_count                               = `redcap_instance_count`,
-    redcap_pop                                          = `redcap_pop`,
-    redcap_start_date                                   = `redcap_start_date`,
-    active_users                                        = `active_users`,
-    active_projects                                     = `active_projects`,
-    logged_events                                       = `logged_events`,
-    em_no                                               = `em_no`,
-    ccus_createprojects                                 = `ccus_createprojects`,
-    ccus_moveprod                                       = `ccus_moveprod`,
-    ccus_changerequests                                 = `ccus_changerequests`,
-    ccus_repeatingsetup                                 = `ccus_repeatingsetup`,
-    ccus_addevents                                      = `ccus_addevents`,
-    ccus_authenticate                                   = `ccus_authenticate`,
-    institutional_questionnaire2_complete               = `institutional_questionnaire2_complete`,
-    manageusers                                         = `manageusers`,
-    create                                              = `create`,
-    create_charge                                       = `create_charge`,
-    design                                              = `design`,
-    design_charge                                       = `design_charge`,
-    build                                               = `build`,
-    build_charge                                        = `build_charge`,
-    maintain                                            = `maintain`,
-    maintain_charge                                     = `maintain_charge`,
-    ts                                                  = `ts`,
-    ts_charge                                           = `ts_charge`,
-    em                                                  = `em`,
-    em_charge                                           = `em_charge`,
-    cc                                                  = `cc`,
-    cc_charge                                           = `cc_charge`,
-    api                                                 = `api`,
-    api_charge                                          = `api_charge`,
-    recovery                                            = `recovery`,
-    recovery_charge                                     = `recovery_charge`,
-    mobile                                              = `mobile`,
-    mobile_charge                                       = `mobile_charge`,
-    random                                              = `random`,
-    random_charge                                       = `random_charge`,
-    econ                                                = `econ`,
-    econ_charge                                         = `econ_charge`,
-    mycap                                               = `mycap`,
-    mycap_charge                                        = `mycap_charge`,
-    mlm                                                 = `mlm`,
-    mlm_charge                                          = `mlm_charge`,
-    cdp                                                 = `cdp`,
-    cdp_charge                                          = `cdp_charge`,
-    cdm                                                 = `cdm`,
-    cdm_charge                                          = `cdm_charge`,
-    group                                               = `group`,
-    group_charge                                        = `group_charge`,
-    ind                                                 = `ind`,
-    ind_charge                                          = `ind_charge`,
-    l_train                                             = `l_train`,
-    l_train_charge                                      = `l_train_charge`,
-    s_train                                             = `s_train`,
-    s_train_charge                                      = `s_train_charge`,
-    institutional_questionnaire3_complete               = `institutional_questionnaire3_complete`,
-    charge_type                                         = `charge_type`,
-    charge_reasons                                      = `charge_reasons`,
-    charge_staff                                        = `charge_staff`,
-    charge_effort                                       = `charge_effort`,
-    charge_success                                      = `charge_success`,
-    fee_mange_sat                                       = `fee_mange_sat`,
-    sec_type                                            = `sec_type`,
-    sec_charge                                          = `sec_charge`,
-    sys_validation                                      = `sys_validation`,
-    who_val_initial                                     = `who_val_initial`,
-    module_val                                          = `module_val`,
-    project_val                                         = `project_val`,
-    rsvc                                                = `rsvc`,
-    staff_val                                           = `staff_val`,
-    sys_val_effort                                      = `sys_val_effort`,
-    audit_support                                       = `audit_support`,
-    audit_status                                        = `audit_status`,
-    monthly_requests                                    = `monthly_requests`,
-    ticket                                              = `ticket`,
-    ticket_type                                         = `ticket_type`,
-    likesetup_ticketing                                 = `likesetup_ticketing`,
-    version                                             = `version`,
-    release                                             = `release`,
-    server_host                                         = `server_host`,
-    server_manage                                       = `server_manage`,
-    server_manage_other                                 = `server_manage_other`,
-    host_cloud                                          = `host_cloud`,
-    host_cloud_other                                    = `host_cloud_other`,
-    upgrade                                             = `upgrade`,
-    upgrade_oth                                         = `upgrade_oth`,
-    update_barriers                                     = `update_barriers`,
-    institutional_questionnaire4_complete               = `institutional_questionnaire4_complete`,
+    # inst1_admin_total                                   = `totaladmin`,
+    # inst1_admin_total_fte                               = `total_fte`,
+    # inst1_admin_server                                  = `admin_server`,
+    # inst1_admin_server_fte                              = `admin_server_fte`,
+    # inst1_admin_user                                    = `admin_user`,
+    # inst1_admin_user_fte                                = `admin_user_fte`,
+    # inst1_admin_code                                    = `admin_code`,
+    # inst1_admin_coding_fte                              = `admin_coding_fte`,
+    # inst1_salary_entry                                  = `sal_entry`,
+    # inst1_salary_mid                                    = `sal_mid`,
+    # inst1_salary_senior                                 = `sal_sen`,
+    # inst1_complete                                      = `institutional_questionnaire_complete`,
+    # redcap_instance_count                               = `redcap_instance_count`,
+    # redcap_pop                                          = `redcap_pop`,
+    # redcap_start_date                                   = `redcap_start_date`,
+    # active_users                                        = `active_users`,
+    # active_projects                                     = `active_projects`,
+    # logged_events                                       = `logged_events`,
+    # em_no                                               = `em_no`,
+    # ccus_createprojects                                 = `ccus_createprojects`,
+    # ccus_moveprod                                       = `ccus_moveprod`,
+    # ccus_changerequests                                 = `ccus_changerequests`,
+    # ccus_repeatingsetup                                 = `ccus_repeatingsetup`,
+    # ccus_addevents                                      = `ccus_addevents`,
+    # ccus_authenticate                                   = `ccus_authenticate`,
+    # institutional_questionnaire2_complete               = `institutional_questionnaire2_complete`,
+    # manageusers                                         = `manageusers`,
+    # create                                              = `create`,
+    # create_charge                                       = `create_charge`,
+    # design                                              = `design`,
+    # design_charge                                       = `design_charge`,
+    # build                                               = `build`,
+    # build_charge                                        = `build_charge`,
+    # maintain                                            = `maintain`,
+    # maintain_charge                                     = `maintain_charge`,
+    # ts                                                  = `ts`,
+    # ts_charge                                           = `ts_charge`,
+    # em                                                  = `em`,
+    # em_charge                                           = `em_charge`,
+    # cc                                                  = `cc`,
+    # cc_charge                                           = `cc_charge`,
+    # api                                                 = `api`,
+    # api_charge                                          = `api_charge`,
+    # recovery                                            = `recovery`,
+    # recovery_charge                                     = `recovery_charge`,
+    # mobile                                              = `mobile`,
+    # mobile_charge                                       = `mobile_charge`,
+    # random                                              = `random`,
+    # random_charge                                       = `random_charge`,
+    # econ                                                = `econ`,
+    # econ_charge                                         = `econ_charge`,
+    # mycap                                               = `mycap`,
+    # mycap_charge                                        = `mycap_charge`,
+    # mlm                                                 = `mlm`,
+    # mlm_charge                                          = `mlm_charge`,
+    # cdp                                                 = `cdp`,
+    # cdp_charge                                          = `cdp_charge`,
+    # cdm                                                 = `cdm`,
+    # cdm_charge                                          = `cdm_charge`,
+    # group                                               = `group`,
+    # group_charge                                        = `group_charge`,
+    # ind                                                 = `ind`,
+    # ind_charge                                          = `ind_charge`,
+    # l_train                                             = `l_train`,
+    # l_train_charge                                      = `l_train_charge`,
+    # s_train                                             = `s_train`,
+    # s_train_charge                                      = `s_train_charge`,
+    # institutional_questionnaire3_complete               = `institutional_questionnaire3_complete`,
+    # charge_type                                         = `charge_type`,
+    # charge_reasons                                      = `charge_reasons`,
+    # charge_staff                                        = `charge_staff`,
+    # charge_effort                                       = `charge_effort`,
+    # charge_success                                      = `charge_success`,
+    # fee_mange_sat                                       = `fee_mange_sat`,
+    # sec_type                                            = `sec_type`,
+    # sec_charge                                          = `sec_charge`,
+    # sys_validation                                      = `sys_validation`,
+    # who_val_initial                                     = `who_val_initial`,
+    # module_val                                          = `module_val`,
+    # project_val                                         = `project_val`,
+    # rsvc                                                = `rsvc`,
+    # staff_val                                           = `staff_val`,
+    # sys_val_effort                                      = `sys_val_effort`,
+    # audit_support                                       = `audit_support`,
+    # audit_status                                        = `audit_status`,
+    # monthly_requests                                    = `monthly_requests`,
+    # ticket                                              = `ticket`,
+    # ticket_type                                         = `ticket_type`,
+    # likesetup_ticketing                                 = `likesetup_ticketing`,
+    # version                                             = `version`,
+    # release                                             = `release`,
+    # server_host                                         = `server_host`,
+    # server_manage                                       = `server_manage`,
+    # server_manage_other                                 = `server_manage_other`,
+    # host_cloud                                          = `host_cloud`,
+    # host_cloud_other                                    = `host_cloud_other`,
+    # upgrade                                             = `upgrade`,
+    # upgrade_oth                                         = `upgrade_oth`,
+    # update_barriers                                     = `update_barriers`,
+    # institutional_questionnaire4_complete               = `institutional_questionnaire4_complete`,
   ) |>
   # dplyr::mutate(
   # ) |>
@@ -277,6 +277,77 @@ ds <-
   tibble::rowid_to_column("instituion_index") # Add a unique index if necessary
 
 # ---- groom-institution-1 -----------------------------------------------------
+map_to_label <- function(
+  d,                               # the primary client table
+  .variable,
+  .category = .variable
+) {
+  checkmate::assert_tibble(   d)
+  checkmate::assert_character(.variable       , len = 1, any.missing = FALSE)
+  checkmate::assert_character(.category       , len = 1, any.missing = FALSE)
+  # checkmate::assert_character(.var_out        , len = 1, any.missing = FALSE)
+  # checkmate::assert_integer(  .year           , len = 1, any.missing = FALSE, lower = 2003, upper = 2021)
+  # checkmate::assert_character(.var_in         , len = 1, any.missing = FALSE)
+  # checkmate::assert_character(.response_name  , len = 1, any.missing = FALSE)
+
+  d_lu <-
+    config$path_variable_label_derived |>
+    arrow::read_parquet() |>
+    # dplyr::rename(
+    #   variable  = !!.variable
+    # ) |>
+    dplyr::filter(category == .category)
+
+  level_order <-
+    d_lu |>
+    dplyr::arrange(display_order) |>
+    dplyr::pull(label) |>
+    unique()
+
+
+  d_lu <-
+    d_lu |>
+    dplyr::mutate(
+      label = factor(label, levels = level_order),
+    ) |>
+    dplyr::select(-display_order)
+
+  missing_levels <-
+    base::setdiff(
+      unique(na.omit(d[[.variable]])),
+      d_lu$value
+    )
+
+  if (1L <= length(missing_levels)) {
+    stop(
+      "The following levels in the dataset are missing in the lookup table:\n  ",
+      paste(missing_levels, collapse = ";"), "."
+    )
+  }
+  d[[.variable]]  <- as.character(d[[.variable]])
+
+  # browser()
+  by <- rlang::set_names(x = "value", nm = ".variable_old")
+  d_lu <-
+    d_lu |>
+    dplyr::select(
+      value,
+      !!.variable := label,
+    )
+
+  d |>
+    dplyr::rename(
+     .variable_old = !!.variable
+    ) |>
+    dplyr::left_join(d_lu, by = by) |>
+    dplyr::select(
+      -.variable_old,
+    )
+}
+
+ds |>
+  map_to_label("inst1_program_model") #|> View()
+
 # ds <-
   ds |>
   dplyr::mutate(
