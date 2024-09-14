@@ -1,0 +1,6 @@
+category,value,label,order,comment
+inst1_program_funding,1,"Institutional Operating Funds",1,
+inst1_program_funding,2,"NIH CTSA Grant",2,
+inst1_program_funding,3,"Project Grants or Contracts",3,
+inst1_program_funding,4,"Cost Recovery Model (Charge backs)",4,
+inst1_program_funding,98,"Other",98,
