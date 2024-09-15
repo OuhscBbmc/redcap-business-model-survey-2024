@@ -47,12 +47,13 @@ Notes
 ---------------------------------------------------------------------------
 
 1.  The current report covers 82 survey responses to the institutional survey.
-1.  Other information is available at:
+1.  Other survey information is available at:
 <https://redcap.link/bmw_institutiondata>
 
 Unanswered Questions
 ---------------------------------------------------------------------------
 
+1. Please see the full list at <https://github.com/OuhscBbmc/redcap-business-model-survey-2024/blob/main/documentation/notes-ingestion.md>
 1. What does `VS` stand for?  How was it measured?
 1. Where the cars at the Philly track measured with the same phluguerstometer and the Cleveland track?
 
@@ -64,10 +65,15 @@ Answered Questions
 Marginals
 ===========================================================================
 
-Institution 1 Instrument
+Institution 1 (Instrument)
 ---------------------------------------------------------------------------
 
 ![](figure-png/marginals-inst1-1.png)<!-- -->![](figure-png/marginals-inst1-2.png)<!-- -->![](figure-png/marginals-inst1-3.png)<!-- -->![](figure-png/marginals-inst1-4.png)<!-- -->![](figure-png/marginals-inst1-5.png)<!-- -->![](figure-png/marginals-inst1-6.png)<!-- -->![](figure-png/marginals-inst1-7.png)<!-- -->![](figure-png/marginals-inst1-8.png)<!-- -->![](figure-png/marginals-inst1-9.png)<!-- -->![](figure-png/marginals-inst1-10.png)<!-- -->![](figure-png/marginals-inst1-11.png)<!-- -->![](figure-png/marginals-inst1-12.png)<!-- -->![](figure-png/marginals-inst1-13.png)<!-- -->![](figure-png/marginals-inst1-14.png)<!-- -->![](figure-png/marginals-inst1-15.png)<!-- -->![](figure-png/marginals-inst1-16.png)<!-- -->![](figure-png/marginals-inst1-17.png)<!-- -->![](figure-png/marginals-inst1-18.png)<!-- -->![](figure-png/marginals-inst1-19.png)<!-- -->![](figure-png/marginals-inst1-20.png)<!-- -->
+
+Institution 2 (Instrument)
+---------------------------------------------------------------------------
+
+![](figure-png/marginals-inst2-1.png)<!-- -->![](figure-png/marginals-inst2-2.png)<!-- -->![](figure-png/marginals-inst2-3.png)<!-- -->![](figure-png/marginals-inst2-4.png)<!-- -->![](figure-png/marginals-inst2-5.png)<!-- -->![](figure-png/marginals-inst2-6.png)<!-- -->![](figure-png/marginals-inst2-7.png)<!-- -->![](figure-png/marginals-inst2-8.png)<!-- -->![](figure-png/marginals-inst2-9.png)<!-- -->![](figure-png/marginals-inst2-10.png)<!-- -->![](figure-png/marginals-inst2-11.png)<!-- -->![](figure-png/marginals-inst2-12.png)<!-- -->![](figure-png/marginals-inst2-13.png)<!-- -->![](figure-png/marginals-inst2-14.png)<!-- -->![](figure-png/marginals-inst2-15.png)<!-- -->![](figure-png/marginals-inst2-16.png)<!-- -->![](figure-png/marginals-inst2-17.png)<!-- -->![](figure-png/marginals-inst2-18.png)<!-- -->![](figure-png/marginals-inst2-19.png)<!-- -->
 
 
 Scatterplots
@@ -190,4 +196,4 @@ For the sake of documentation and reproducibility, the current report was render
 
 
 
-Report rendered by wibeasley at 2024-09-15, 13:57 -0500 in 5 seconds.
+Report rendered by wibeasley at 2024-09-15, 15:16 -0500 in 9 seconds.

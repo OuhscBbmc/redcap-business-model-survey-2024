@@ -113,6 +113,6 @@ map_to_checkbox <- function( # .variable = "inst1_funding"
   d |>
     dplyr::left_join(d_wide, by = "institution_index") |>
     dplyr::select(
-      -!!"inst1_funding"
+      -!!.variable
     )
 }

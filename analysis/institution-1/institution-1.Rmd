@@ -78,12 +78,13 @@ Notes
 ---------------------------------------------------------------------------
 
 1.  The current report covers `r nrow(ds)` survey responses to the institutional survey.
-1.  Other information is available at:
+1.  Other survey information is available at:
 <https://redcap.link/bmw_institutiondata>
 
 Unanswered Questions
 ---------------------------------------------------------------------------
 
+1. Please see the full list at <https://github.com/OuhscBbmc/redcap-business-model-survey-2024/blob/main/documentation/notes-ingestion.md>
 1. What does `VS` stand for?  How was it measured?
 1. Where the cars at the Philly track measured with the same phluguerstometer and the Cleveland track?
 
@@ -95,10 +96,16 @@ Answered Questions
 Marginals
 ===========================================================================
 
-Institution 1 Instrument
+Institution 1 (Instrument)
 ---------------------------------------------------------------------------
 
 ```{r marginals-inst1, echo=echo_chunks, message=message_chunks}
+```
+
+Institution 2 (Instrument)
+---------------------------------------------------------------------------
+
+```{r marginals-inst2, echo=echo_chunks, message=message_chunks}
 ```
 
 

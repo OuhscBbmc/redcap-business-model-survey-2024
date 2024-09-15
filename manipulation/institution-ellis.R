@@ -180,20 +180,22 @@ ds <-
     inst1_salary_mid                                    = `sal_mid`,
     inst1_salary_senior                                 = `sal_sen`,
     inst1_complete                                      = `institutional_questionnaire_complete`,
-    # redcap_instance_count                               = `redcap_instance_count`,
-    # redcap_pop                                          = `redcap_pop`,
-    # redcap_start_date                                   = `redcap_start_date`,
-    # active_users                                        = `active_users`,
-    # active_projects                                     = `active_projects`,
-    # logged_events                                       = `logged_events`,
-    # em_no                                               = `em_no`,
-    # ccus_createprojects                                 = `ccus_createprojects`,
-    # ccus_moveprod                                       = `ccus_moveprod`,
-    # ccus_changerequests                                 = `ccus_changerequests`,
-    # ccus_repeatingsetup                                 = `ccus_repeatingsetup`,
-    # ccus_addevents                                      = `ccus_addevents`,
-    # ccus_authenticate                                   = `ccus_authenticate`,
-    # institutional_questionnaire2_complete               = `institutional_questionnaire2_complete`,
+
+    inst2_instance_count                                = `redcap_instance_count`,
+    inst2_client                                        = `redcap_pop`,
+    inst2_start_date                                    = `redcap_start_date`,
+    inst2_user_count                                    = `active_users`,
+    inst2_project_count                                 = `active_projects`,
+    inst2_log_count_recent                              = `logged_events`,
+    inst2_em_count                                      = `em_no`,
+    inst2_allow_create                                  = `ccus_createprojects`,
+    inst2_allow_production_move                         = `ccus_moveprod`,
+    inst2_allow_production_change                       = `ccus_changerequests`,
+    inst2_allow_repeating_change                        = `ccus_repeatingsetup`,
+    inst2_allow_events                                  = `ccus_addevents`,
+    inst2_authenticate                                  = `ccus_authenticate`,
+    inst2_complete                                      = `institutional_questionnaire2_complete`,
+
     # manageusers                                         = `manageusers`,
     # create                                              = `create`,
     # create_charge                                       = `create_charge`,
@@ -301,7 +303,24 @@ ds <-
     -inst1_country,
   ) #|>  View()
 
-# ds$inst1_status
+# ---- groom-institution-2 -----------------------------------------------------
+ds <-
+ds |>
+  dplyr::mutate(
+    inst2_start_year              = as.integer(lubridate::year(inst2_start_date)),
+    inst2_allow_create            = as.logical(inst2_allow_create               ),
+    inst2_allow_production_move   = as.logical(inst2_allow_production_move      ),
+    inst2_allow_repeating_change  = as.logical(inst2_allow_repeating_change     ),
+    inst2_allow_events            = as.logical(inst2_allow_events               ),
+    inst2_complete                = REDCapR::constant_to_form_completion(inst2_complete),
+  ) |>
+  map_to_checkbox("inst2_client") |>
+  map_to_radio(   "inst2_allow_production_change") |>
+  map_to_radio(   "inst2_authenticate") |>
+  # dplyr::select(tidyselect::starts_with("inst2_")) |>
+  dplyr::select(
+    -inst2_start_date
+  )
 
 # ---- reestablish-column-order ------------------------------------------------
 ds <-
@@ -310,9 +329,11 @@ ds <-
     institution_index,
     tidyselect::matches("inst1_(?!complete)", perl = TRUE), # A "negative-lookahead"
     inst1_complete,
+    tidyselect::matches("inst2_(?!complete)", perl = TRUE), # A "negative-lookahead"
+    inst2_complete,
   )
 
-# ---- verify-values -----------------------------------------------------------
+# ---- verify-values-inst1 -----------------------------------------------------------
 # OuhscMunge::verify_value_headstart(ds)
 checkmate::assert_integer(  ds$institution_index      , any.missing=F , lower=1, upper=999  , unique=T)
 checkmate::assert_character(ds$inst1_country_cut3     , any.missing=F , pattern="^.{3,9}$"  )
@@ -340,6 +361,25 @@ checkmate::assert_numeric(  ds$inst1_admin_coding_fte , any.missing=T , lower=0,
 # checkmate::assert_character(ds$inst1_salary_senior    , any.missing=T , pattern="^.{1,100}$" )
 checkmate::assert_factor(   ds$inst1_complete         , any.missing=F                       )
 
+# ---- verify-values-inst2 -----------------------------------------------------------
+checkmate::assert_integer( ds$inst2_instance_count                , any.missing=T , lower=1, upper=9999       )
+checkmate::assert_logical( ds$inst2_client_limited                , any.missing=F                             )
+checkmate::assert_logical( ds$inst2_client_institution_single     , any.missing=F                             )
+checkmate::assert_logical( ds$inst2_client_institution_multiple   , any.missing=F                             )
+checkmate::assert_logical( ds$inst2_client_other                  , any.missing=F                             )
+checkmate::assert_integer( ds$inst2_start_year                    , any.missing=T                             )
+checkmate::assert_integer( ds$inst2_user_count                    , any.missing=T , lower=20, upper=99999     )
+checkmate::assert_integer( ds$inst2_project_count                 , any.missing=T , lower=5, upper=99999      )
+checkmate::assert_numeric( ds$inst2_log_count_recent              , any.missing=T , lower=5, upper=99999999   )
+checkmate::assert_integer( ds$inst2_em_count                      , any.missing=T , lower=0, upper=999        )
+checkmate::assert_logical( ds$inst2_allow_create                  , any.missing=T                             )
+checkmate::assert_logical( ds$inst2_allow_production_move         , any.missing=T                             )
+checkmate::assert_factor(  ds$inst2_allow_production_change       , any.missing=T                             )
+checkmate::assert_logical( ds$inst2_allow_repeating_change        , any.missing=T                             )
+checkmate::assert_logical( ds$inst2_allow_events                  , any.missing=T                             )
+checkmate::assert_factor(  ds$inst2_authenticate                  , any.missing=T                             )
+checkmate::assert_factor(  ds$inst2_complete                      , any.missing=F                             )
+
 # ---- specify-columns-to-upload -----------------------------------------------
 # Print colnames that `dplyr::select()`  should contain below:
 #   cat(paste0("    ", colnames(ds), collapse=",\n"))
@@ -352,6 +392,7 @@ ds_slim <-
   # dplyr::slice(1:100) |>
   dplyr::select(
     institution_index,
+
     inst1_country_cut3,
     inst1_county_usa,
     inst1_status,
@@ -376,6 +417,24 @@ ds_slim <-
     # inst1_salary_mid,
     # inst1_salary_senior,
     inst1_complete,
+
+    inst2_instance_count,
+    inst2_client_limited,
+    inst2_client_institution_single,
+    inst2_client_institution_multiple,
+    inst2_client_other,
+    inst2_start_year,
+    inst2_user_count,
+    inst2_project_count,
+    inst2_log_count_recent,
+    inst2_em_count,
+    inst2_allow_create,
+    inst2_allow_production_move,
+    inst2_allow_production_change,
+    inst2_allow_repeating_change,
+    inst2_allow_events,
+    inst2_authenticate,
+    inst2_complete,
   )
 
 ds_slim

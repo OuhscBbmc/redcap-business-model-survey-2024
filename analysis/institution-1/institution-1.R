@@ -28,7 +28,6 @@ ds <-
   # )
 
 # ---- marginals-inst1 ---------------------------------------------------------------
-# Inspect continuous variables
 TabularManifest::histogram_discrete(ds, variable_name="inst1_country_cut3")
 TabularManifest::histogram_discrete(ds, variable_name="inst1_county_usa")
 TabularManifest::histogram_discrete(ds, variable_name="inst1_status")
@@ -56,6 +55,27 @@ TabularManifest::histogram_discrete(ds, variable_name="inst1_complete")
 # for(column in colnames(ds)) {
 #   cat('TabularManifest::histogram_discrete(ds, variable_name="', column,'")\n', sep="")
 # }
+
+# ---- marginals-inst2 ---------------------------------------------------------------
+TabularManifest::histogram_discrete(  ds, "inst2_instance_count")
+TabularManifest::histogram_continuous(ds, "inst2_instance_count", bin_width = 1, rounded_digits = 1)
+TabularManifest::histogram_discrete(  ds, "inst2_client_limited")
+TabularManifest::histogram_discrete(  ds, "inst2_client_institution_single")
+TabularManifest::histogram_discrete(  ds, "inst2_client_institution_multiple")
+TabularManifest::histogram_discrete(  ds, "inst2_client_other")
+TabularManifest::histogram_discrete(  ds, "inst2_start_year")
+TabularManifest::histogram_continuous(ds, "inst2_start_year"        , bin_width = 1, rounded_digits = 1)
+TabularManifest::histogram_continuous(ds, "inst2_user_count"        , bin_width = 1000, rounded_digits = 1)
+TabularManifest::histogram_continuous(ds, "inst2_project_count"     , bin_width = 1000, rounded_digits = 1)
+TabularManifest::histogram_continuous(ds, "inst2_log_count_recent"  , bin_width = 1000000, rounded_digits = 1)
+TabularManifest::histogram_continuous(ds, "inst2_em_count"          , bin_width = 5, rounded_digits = 1)
+TabularManifest::histogram_discrete(  ds, "inst2_allow_create")
+TabularManifest::histogram_discrete(  ds, "inst2_allow_production_move")
+TabularManifest::histogram_discrete(  ds, "inst2_allow_production_change")
+TabularManifest::histogram_discrete(  ds, "inst2_allow_repeating_change")
+TabularManifest::histogram_discrete(  ds, "inst2_allow_events")
+TabularManifest::histogram_discrete(  ds, "inst2_authenticate")
+TabularManifest::histogram_discrete(  ds, "inst2_complete")
 
 # ---- scatterplots ------------------------------------------------------------
 # g1 <-
