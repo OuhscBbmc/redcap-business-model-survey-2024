@@ -1,5 +1,5 @@
 ---
-title: BMW Survey 2024 Descriptives
+title: BMW Institution Survey 2024 Report 1
 date: "Date: 2024-09-15"
 output:
   html_document:
@@ -46,7 +46,9 @@ Summary {.tabset .tabset-fade .tabset-pills}
 Notes
 ---------------------------------------------------------------------------
 
-1. The current report covers 82 survey responses to the institutional survey.
+1.  The current report covers 82 survey responses to the institutional survey.
+1.  Other information is available at:
+<https://redcap.link/bmw_institutiondata>
 
 Unanswered Questions
 ---------------------------------------------------------------------------
@@ -188,4 +190,4 @@ For the sake of documentation and reproducibility, the current report was render
 
 
 
-Report rendered by wibeasley at 2024-09-15, 13:41 -0500 in 5 seconds.
+Report rendered by wibeasley at 2024-09-15, 13:57 -0500 in 5 seconds.
