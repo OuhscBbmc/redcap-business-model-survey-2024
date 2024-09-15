@@ -1,10 +1,10 @@
 category,value,label,display_order,comment
-inst1_program_model,0,"No/minimal user support",0,
-inst1_program_model,1,"No charge",1,
-inst1_program_model,2,"Charge users",2,
-inst1_program_model,3,"Both",3,
-inst1_program_funding,1,"institution",1,"Institutional Operating Funds"
-inst1_program_funding,2,"ctsa",2,"NIH CTSA Grant"
-inst1_program_funding,3,"project",3,"Project Grants or Contracts"
-inst1_program_funding,4,"cost_recovery",4,"Cost Recovery Model (Charge backs)"
-inst1_program_funding,98,"other",98,"Other"
+inst1_model,0,"No/minimal user support",0,
+inst1_model,1,"No charge",1,
+inst1_model,2,"Charge users",2,
+inst1_model,3,"Both",3,
+inst1_funding,1,"institution",1,"Institutional Operating Funds"
+inst1_funding,2,"ctsa",2,"NIH CTSA Grant"
+inst1_funding,3,"project",3,"Project Grants or Contracts"
+inst1_funding,4,"cost_recovery",4,"Cost Recovery Model (Charge backs)"
+inst1_funding,98,"other",98,"Other"

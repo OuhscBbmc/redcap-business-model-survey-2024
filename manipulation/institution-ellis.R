@@ -163,10 +163,10 @@ ds <-
   dplyr::select(
     inst1_country                                       = `country`,
     # inst1_region                                        = `st_region`,
-    inst1_program_status                                = `program_status`,
-    inst1_program_growth                                = `program_growth`,
-    inst1_program_model                                 = `program_model`,
-    inst1_program_funding                               = `program_funding`,
+    inst1_status                                        = `program_status`,
+    inst1_growth                                        = `program_growth`,
+    inst1_model                                         = `program_model`,
+    inst1_funding                                       = `program_funding`,
     inst1_dept_home                                     = `support_type`,
     inst1_admin_total                                   = `totaladmin`,
     inst1_admin_total_fte                               = `total_fte`,
@@ -272,10 +272,10 @@ ds <-
   # dplyr::mutate(
   # ) |>
   # dplyr::arrange(subject_id) # |>
-  tibble::rowid_to_column("instituion_index") # Add a unique index if necessary
+  tibble::rowid_to_column("institution_index") # Add a unique index if necessary
 
 # ---- groom-institution-1 -----------------------------------------------------
-.category <- "inst1_program_funding"
+.category <- "inst1_funding"
 d_lu <-
   config$path_variable_label_derived |>
   arrow::read_parquet() |>
@@ -283,10 +283,10 @@ d_lu <-
 
 ds |>
   dplyr::select(
-    instituion_index,
-    inst1_program_funding,
+    institution_index,
+    inst1_funding,
   ) |>
-  tidyr::separate_longer_delim(cols = inst1_program_funding, delim = ",")
+  tidyr::separate_longer_delim(cols = inst1_funding, delim = ",")
 
 ds <-
   ds |>
@@ -301,7 +301,7 @@ ds <-
         .default  = "Other" # As of Sept 2024, all other countries are <=10
       )
   ) |>
-  map_to_label("inst1_program_model") |> # defined in manipulation/retrieve-variable-labels.R
+  map_to_label("inst1_model") |> # defined in manipulation/retrieve-variable-labels.R
   dplyr::mutate(
     inst1_complete  = REDCapR::constant_to_form_completion(inst1_complete),
   ) |>
@@ -313,11 +313,11 @@ ds <-
 
 # ---- verify-values -----------------------------------------------------------
 # OuhscMunge::verify_value_headstart(ds)
-checkmate::assert_integer(  ds$instituion_index       , any.missing=F , lower=1, upper=999  , unique=T)
-checkmate::assert_integer(  ds$inst1_program_status   , any.missing=T , lower=2, upper=5    )
-checkmate::assert_integer(  ds$inst1_program_growth   , any.missing=T , lower=2, upper=5    )
-checkmate::assert_factor(   ds$inst1_program_model    , any.missing=T                       )
-checkmate::assert_character(ds$inst1_program_funding  , any.missing=T , pattern="^.{1,7}$"  )
+checkmate::assert_integer(  ds$institution_index      , any.missing=F , lower=1, upper=999  , unique=T)
+checkmate::assert_integer(  ds$inst1_status           , any.missing=T , lower=2, upper=5    )
+checkmate::assert_integer(  ds$inst1_growth           , any.missing=T , lower=2, upper=5    )
+checkmate::assert_factor(   ds$inst1_model            , any.missing=T                       )
+checkmate::assert_character(ds$inst1_funding          , any.missing=T , pattern="^.{1,7}$"  )
 checkmate::assert_integer(  ds$inst1_dept_home        , any.missing=T , lower=1, upper=98   )
 checkmate::assert_integer(  ds$inst1_admin_total      , any.missing=T , lower=1, upper=25   )
 checkmate::assert_numeric(  ds$inst1_admin_total_fte  , any.missing=T , lower=0, upper=20   )
@@ -345,11 +345,11 @@ ds_slim <-
   ds |>
   # dplyr::slice(1:100) |>
   dplyr::select(
-    instituion_index,
-    inst1_program_status,
-    inst1_program_growth,
-    inst1_program_model,
-    inst1_program_funding,
+    institution_index,
+    inst1_status,
+    inst1_growth,
+    inst1_model,
+    inst1_funding,
     inst1_dept_home,
     inst1_admin_total,
     inst1_admin_total_fte,
@@ -373,4 +373,3 @@ ds_slim
 # If there's no PHI, a rectangular CSV is usually adequate, and it's portable to other machines and software.
 # readr::write_csv(ds_slim, path_out_unified)
 arrow::write_parquet(ds_slim, config$path_institution_derived)
-
