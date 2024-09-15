@@ -1,20 +1,20 @@
 category,value,label,display_order,comment
-inst1_status,1,"Startup",1,
-inst1_status,2,"Beginner",2,
-inst1_status,3,"Intermediate",3,
-inst1_status,4,"Established",4,
-inst1_status,5,"Well-oiled",5,
-inst1_growth,1,"Implementation",1,
-inst1_growth,2,"A few users",2,
-inst1_growth,3,"Steady growth",3,
-inst1_growth,4,"Rapid growth",4,
-inst1_growth,5,"Plateaued",5,
-inst1_model,0,"No/minimal user support",0,
-inst1_model,1,"No charge",1,
-inst1_model,2,"Charge users",2,
-inst1_model,3,"Both",3,
-inst1_funding,1,"institution",1,"Institutional Operating Funds"
-inst1_funding,2,"ctsa",2,"NIH CTSA Grant"
-inst1_funding,3,"project",3,"Project Grants or Contracts"
-inst1_funding,4,"cost_recovery",4,"Cost Recovery Model (Charge backs)"
-inst1_funding,98,"other",98,"Other"
+inst1_status,1,"startup",1,
+inst1_status,2,"beginner",2,
+inst1_status,3,"intermediate",3,
+inst1_status,4,"established",4,
+inst1_status,5,"well-oiled",5,
+inst1_growth,1,"implementation",1,
+inst1_growth,2,"a few users",2,
+inst1_growth,3,"steady growth",3,
+inst1_growth,4,"rapid growth",4,
+inst1_growth,5,"plateaued",5,
+inst1_model,0,"no/minimal user support",0,
+inst1_model,1,"no charge",1,
+inst1_model,2,"charge users",2,
+inst1_model,3,"both",3,
+inst1_funding,1,"institution",1,"institutional operating funds"
+inst1_funding,2,"ctsa",2,"NIH CTSA grant"
+inst1_funding,3,"project",3,"project grants or contracts"
+inst1_funding,4,"cost_recovery",4,"cost recovery model (charge backs)"
+inst1_funding,98,"other",98,"other"
