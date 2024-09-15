@@ -292,6 +292,7 @@ ds <-
   map_to_radio(   "inst1_growth") |>
   map_to_radio(   "inst1_model") |>
   map_to_checkbox("inst1_funding") |> # defined in manipulation/retrieve-variable-labels.R
+  map_to_radio(   "inst1_dept_home") |>
   dplyr::mutate(
     inst1_complete  = REDCapR::constant_to_form_completion(inst1_complete),
   ) |>
@@ -323,7 +324,7 @@ checkmate::assert_logical(  ds$inst1_funding_ctsa          , any.missing=F      
 checkmate::assert_logical(  ds$inst1_funding_project       , any.missing=F                       )
 checkmate::assert_logical(  ds$inst1_funding_cost_recovery , any.missing=F                       )
 checkmate::assert_logical(  ds$inst1_funding_other         , any.missing=F                       )
-checkmate::assert_integer(  ds$inst1_dept_home        , any.missing=T , lower=1, upper=98   )
+checkmate::assert_factor(   ds$inst1_dept_home        , any.missing=T)
 checkmate::assert_integer(  ds$inst1_admin_total      , any.missing=T , lower=1, upper=25   )
 checkmate::assert_numeric(  ds$inst1_admin_total_fte  , any.missing=T , lower=0, upper=20   )
 checkmate::assert_numeric(  ds$inst1_admin_server     , any.missing=T , lower=0, upper=10   )

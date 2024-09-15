@@ -18,3 +18,11 @@ inst1_funding,2,"ctsa",2,"NIH CTSA grant"
 inst1_funding,3,"project",3,"project grants or contracts"
 inst1_funding,4,"cost_recovery",4,"cost recovery model (charge backs)"
 inst1_funding,98,"other",98,"other"
+inst1_dept_home,1,"IT Infrastructure",1,
+inst1_dept_home,2,"IT Applications",2,
+inst1_dept_home,3,"Academic/Resarch",3,
+inst1_dept_home,4,"Data Management/Quality",4,
+inst1_dept_home,5,"Biostats/Analytics",5,
+inst1_dept_home,7,"Clinical Trials",6,
+inst1_dept_home,6,"Dedicated Team",7,
+inst1_dept_home,98,"Other",98,
