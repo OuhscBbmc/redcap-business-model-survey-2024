@@ -68,3 +68,51 @@ map_to_radio <- function(
       -variable_new,
     )
 }
+
+map_to_checkbox <- function( # .variable = "inst1_funding"
+  d,                               # the primary client table
+  .variable,
+  .category = .variable
+) {
+
+  d_lu <-
+    config$path_variable_label_derived |>
+    arrow::read_parquet() |>
+    dplyr::filter(category == .category) |>
+    dplyr::mutate(
+      label = paste0(category, "_", label),
+    ) |>
+    dplyr::select(
+      value,
+      label,
+    )
+
+  by <- rlang::set_names(x = "value", nm = .variable)
+
+  # browser()
+  d_wide <-
+    d |>
+    dplyr::select(
+      institution_index,
+      !!.variable,
+    ) |>
+    tidyr::separate_longer_delim(cols = !!.variable, delim = ",") |>
+    # tidyr::drop_na(!!.variable) |> # Drop if they didn't check any box
+    dplyr::left_join(d_lu, by = by) |>
+    dplyr::select(-!!.variable) |>
+    tidyr::pivot_wider(
+      id_cols     = "institution_index",
+      names_from  = label,
+      values_from = label, # Dummy argument that's not really used.
+      values_fn   = \(x) {TRUE},
+      values_fill = FALSE
+    ) |>
+    dplyr::select(!`NA`) # Drop the spurious `NA` column, that was created when someone didn't check any box.
+  # View(d_wide)
+
+  d |>
+    dplyr::left_join(d_wide, by = "institution_index") |>
+    dplyr::select(
+      -!!"inst1_funding"
+    )
+}
