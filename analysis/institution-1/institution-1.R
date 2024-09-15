@@ -29,7 +29,7 @@ ds <-
 
 # ---- marginals-inst1 ---------------------------------------------------------------
 TabularManifest::histogram_discrete(ds, variable_name="inst1_country_cut3")
-TabularManifest::histogram_discrete(ds, variable_name="inst1_county_usa")
+TabularManifest::histogram_discrete(ds, variable_name="inst1_country_usa")
 TabularManifest::histogram_discrete(ds, variable_name="inst1_status")
 TabularManifest::histogram_discrete(ds, variable_name="inst1_growth")
 TabularManifest::histogram_discrete(ds, variable_name="inst1_model")
@@ -59,6 +59,7 @@ TabularManifest::histogram_discrete(ds, variable_name="inst1_complete")
 # ---- marginals-inst2 ---------------------------------------------------------------
 TabularManifest::histogram_discrete(  ds, "inst2_instance_count")
 TabularManifest::histogram_continuous(ds, "inst2_instance_count", bin_width = 1, rounded_digits = 1)
+TabularManifest::histogram_discrete(  ds, "inst2_instance_count_uncapped")
 TabularManifest::histogram_discrete(  ds, "inst2_client_limited")
 TabularManifest::histogram_discrete(  ds, "inst2_client_institution_single")
 TabularManifest::histogram_discrete(  ds, "inst2_client_institution_multiple")
@@ -78,17 +79,34 @@ TabularManifest::histogram_discrete(  ds, "inst2_authenticate")
 TabularManifest::histogram_discrete(  ds, "inst2_complete")
 
 # ---- scatterplots ------------------------------------------------------------
-# g1 <-
-#   ggplot(ds, aes(x=horsepower, y=quarter_mile_sec, color=forward_gear_count_f)) +
-#   geom_smooth(method="loess", span=2) +
-#   geom_point(shape=1) +
-#   theme_light() +
-#   theme(axis.ticks = element_blank())
-# g1
-#
-# g1 %+% aes(color=NULL)
-# g1 %+% aes(color=factor(cylinder_count))
-#
+g1 <-
+  ds |>
+  ggplot(aes(x=inst2_user_count, y=inst2_project_count, color=inst1_country_usa)) +
+  geom_smooth(method="loess", span=2, se = FALSE) +
+  geom_point(shape=1) +
+  annotation_logticks(sides = "lb") +
+  scale_x_log10(
+    breaks = scales::trans_breaks("log10", function(x) 10^x),
+    labels = scales::trans_format("log10", scales::math_format(10^.x))
+  ) +
+  scale_y_log10(
+    breaks = scales::trans_breaks("log10", function(x) 10^x),
+    labels = scales::trans_format("log10", scales::math_format(10^.x))
+  ) +
+  scale_color_brewer(palette = "Set1") +
+  theme_light() +
+  theme(axis.ticks = element_blank())
+g1
+
+g1 %+% aes(color=inst2_authenticate)
+
+
+g1 %+% aes(y = inst1_admin_total)
+
+g1 %+% aes(y = inst2_instance_count)
+g1 %+% aes(y = inst2_log_count_recent)
+g1 %+% aes(y = inst2_em_count)
+
 # ggplot(ds, aes(x=weight_gear_z, color=forward_gear_count_f, fill=forward_gear_count_f)) +
 #   geom_density(alpha=.1) +
 #   theme_minimal() +

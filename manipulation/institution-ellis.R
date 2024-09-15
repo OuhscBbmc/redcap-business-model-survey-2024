@@ -181,7 +181,7 @@ ds <-
     inst1_salary_senior                                 = `sal_sen`,
     inst1_complete                                      = `institutional_questionnaire_complete`,
 
-    inst2_instance_count                                = `redcap_instance_count`,
+    inst2_instance_count_uncapped                       = `redcap_instance_count`,
     inst2_client                                        = `redcap_pop`,
     inst2_start_date                                    = `redcap_start_date`,
     inst2_user_count                                    = `active_users`,
@@ -280,7 +280,7 @@ ds <-
 ds <-
   ds |>
   dplyr::mutate(
-    inst1_county_usa    = dplyr::if_else(inst1_country == 4L, TRUE, FALSE, missing = NA),
+    inst1_country_usa    = dplyr::if_else(inst1_country == 4L, TRUE, FALSE, missing = NA),
     inst1_country_cut3  =
       dplyr::case_match(
         inst1_country,
@@ -308,6 +308,7 @@ ds <-
 ds |>
   dplyr::mutate(
     inst2_start_year              = as.integer(lubridate::year(inst2_start_date)),
+    inst2_instance_count          = pmin(inst2_instance_count_uncapped, 10L),
     inst2_allow_create            = as.logical(inst2_allow_create               ),
     inst2_allow_production_move   = as.logical(inst2_allow_production_move      ),
     inst2_allow_repeating_change  = as.logical(inst2_allow_repeating_change     ),
@@ -337,7 +338,7 @@ ds <-
 # OuhscMunge::verify_value_headstart(ds)
 checkmate::assert_integer(  ds$institution_index      , any.missing=F , lower=1, upper=999  , unique=T)
 checkmate::assert_character(ds$inst1_country_cut3     , any.missing=F , pattern="^.{3,9}$"  )
-checkmate::assert_logical(  ds$inst1_county_usa       , any.missing=F                       )
+checkmate::assert_logical(  ds$inst1_country_usa       , any.missing=F                       )
 checkmate::assert_factor(   ds$inst1_status           , any.missing=T)
 checkmate::assert_factor(   ds$inst1_growth           , any.missing=T)
 checkmate::assert_factor(   ds$inst1_model            , any.missing=T)
@@ -362,7 +363,8 @@ checkmate::assert_numeric(  ds$inst1_admin_coding_fte , any.missing=T , lower=0,
 checkmate::assert_factor(   ds$inst1_complete         , any.missing=F                       )
 
 # ---- verify-values-inst2 -----------------------------------------------------------
-checkmate::assert_integer( ds$inst2_instance_count                , any.missing=T , lower=1, upper=9999       )
+checkmate::assert_integer( ds$inst2_instance_count                , any.missing=T , lower=1, upper=10       )
+checkmate::assert_integer( ds$inst2_instance_count_uncapped       , any.missing=T , lower=1, upper=9999       )
 checkmate::assert_logical( ds$inst2_client_limited                , any.missing=F                             )
 checkmate::assert_logical( ds$inst2_client_institution_single     , any.missing=F                             )
 checkmate::assert_logical( ds$inst2_client_institution_multiple   , any.missing=F                             )
@@ -394,7 +396,7 @@ ds_slim <-
     institution_index,
 
     inst1_country_cut3,
-    inst1_county_usa,
+    inst1_country_usa,
     inst1_status,
     inst1_growth,
     inst1_model,
@@ -419,6 +421,7 @@ ds_slim <-
     inst1_complete,
 
     inst2_instance_count,
+    inst2_instance_count_uncapped,
     inst2_client_limited,
     inst2_client_institution_single,
     inst2_client_institution_multiple,
