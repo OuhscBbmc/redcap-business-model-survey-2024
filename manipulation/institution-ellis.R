@@ -275,6 +275,19 @@ ds <-
   tibble::rowid_to_column("instituion_index") # Add a unique index if necessary
 
 # ---- groom-institution-1 -----------------------------------------------------
+.category <- "inst1_program_funding"
+d_lu <-
+  config$path_variable_label_derived |>
+  arrow::read_parquet() |>
+  dplyr::filter(category == .category)
+
+ds |>
+  dplyr::select(
+    instituion_index,
+    inst1_program_funding,
+  ) |>
+  tidyr::separate_longer_delim(cols = inst1_program_funding, delim = ",")
+
 ds <-
   ds |>
   dplyr::mutate(
