@@ -315,6 +315,8 @@ ds <-
 # ---- verify-values -----------------------------------------------------------
 # OuhscMunge::verify_value_headstart(ds)
 checkmate::assert_integer(  ds$institution_index      , any.missing=F , lower=1, upper=999  , unique=T)
+checkmate::assert_character(ds$inst1_country_cut3     , any.missing=F , pattern="^.{3,9}$"  )
+checkmate::assert_logical(  ds$inst1_county_usa       , any.missing=F                       )
 checkmate::assert_factor(   ds$inst1_status           , any.missing=T)
 checkmate::assert_factor(   ds$inst1_growth           , any.missing=T)
 checkmate::assert_factor(   ds$inst1_model            , any.missing=T)
@@ -333,11 +335,9 @@ checkmate::assert_numeric(  ds$inst1_admin_user       , any.missing=T , lower=1,
 checkmate::assert_numeric(  ds$inst1_admin_user_fte   , any.missing=T , lower=0, upper=20   )
 checkmate::assert_numeric(  ds$inst1_admin_code       , any.missing=T , lower=0, upper=10   )
 checkmate::assert_numeric(  ds$inst1_admin_coding_fte , any.missing=T , lower=0, upper=10   )
-checkmate::assert_character(ds$inst1_salary_entry     , any.missing=T , pattern="^.{1,100}$" )
-checkmate::assert_character(ds$inst1_salary_mid       , any.missing=T , pattern="^.{1,100}$" )
-checkmate::assert_character(ds$inst1_salary_senior    , any.missing=T , pattern="^.{1,100}$" )
-checkmate::assert_logical(  ds$inst1_county_usa       , any.missing=F                       )
-checkmate::assert_character(ds$inst1_country_cut3     , any.missing=F , pattern="^.{3,9}$"  )
+# checkmate::assert_character(ds$inst1_salary_entry     , any.missing=T , pattern="^.{1,100}$" )
+# checkmate::assert_character(ds$inst1_salary_mid       , any.missing=T , pattern="^.{1,100}$" )
+# checkmate::assert_character(ds$inst1_salary_senior    , any.missing=T , pattern="^.{1,100}$" )
 checkmate::assert_factor(   ds$inst1_complete         , any.missing=F                       )
 
 # ---- specify-columns-to-upload -----------------------------------------------
@@ -352,6 +352,8 @@ ds_slim <-
   # dplyr::slice(1:100) |>
   dplyr::select(
     institution_index,
+    inst1_country_cut3,
+    inst1_county_usa,
     inst1_status,
     inst1_growth,
     inst1_model,
@@ -370,11 +372,9 @@ ds_slim <-
     inst1_admin_user_fte,
     inst1_admin_code,
     inst1_admin_coding_fte,
-    inst1_salary_entry,
-    inst1_salary_mid,
-    inst1_salary_senior,
-    inst1_county_usa,
-    inst1_country_cut3,
+    # inst1_salary_entry,
+    # inst1_salary_mid,
+    # inst1_salary_senior,
     inst1_complete,
   )
 

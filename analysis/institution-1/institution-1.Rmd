@@ -1,8 +1,7 @@
 ---
-title: Skeleton Report 1
+title: BMW Survey 2024 Descriptives
 date: "Date: `r Sys.Date()`"
 output:
-  # radix::radix_article: # radix is a newer alternative that has some advantages over `html_document`.
   html_document:
     keep_md: yes
     toc: 4
@@ -11,7 +10,11 @@ output:
     css: ../common/styles.css         # analysis/common/styles.css
 ---
 
-This report covers the analyses used in the ZZZ project (Marcus Mark, PI).
+This report covers the [2024 survey](https://redcap.vumc.org/community/post.php?id=232648)
+from the Business Model Workgroup ([BMW](https://redcap.vumc.org/community/index.php?topic=200834)).
+To reproduce this report, please see our
+[repository](https://github.com/OuhscBbmc/redcap-business-model-survey-2024).
+
 
 <!--  Set the working directory to the repository's base directory; this assumes the report is nested inside of two directories.-->
 ```{r, echo=F, message=F}
@@ -38,7 +41,7 @@ opts_chunk$set(
 echo_chunks    <- FALSE # Toggle for debugging.
 message_chunks <- FALSE # Toggle for debugging.
 # options(width=100) # So the output is 25% wider than the default.
-read_chunk("./analysis/car-report-1/car-report-1.R") # This allows knitr to call chunks tagged in the underlying *.R file.
+read_chunk("./analysis/institution-1/institution-1.R") # This allows knitr to call chunks tagged in the underlying *.R file.
 ```
 
 <!-- Load 'sourced' R files.  Suppress the output when loading sources. -->
@@ -74,9 +77,7 @@ Summary {.tabset .tabset-fade .tabset-pills}
 Notes
 ---------------------------------------------------------------------------
 
-1. The current report covers `r nrow(ds)` cars, with `r dplyr::n_distinct(ds$carburetor_count_f)` unique values for `carburetor_count`.
-1. The Seattle track's phluguerstometer was producing flaky negative values; it's measurements have been dropped.
-
+1. The current report covers `r nrow(ds)` survey responses to the institutional survey.
 
 Unanswered Questions
 ---------------------------------------------------------------------------
@@ -88,29 +89,26 @@ Unanswered Questions
 Answered Questions
 ---------------------------------------------------------------------------
 
-1. The Seattle track's phluguerstometer was producing flaky negative values; it's measurements have been dropped.
-
-
-Graphs
-===========================================================================
-
 
 Marginals
+===========================================================================
+
+Institution 1 Instrument
 ---------------------------------------------------------------------------
 
-```{r marginals, echo=echo_chunks, message=message_chunks}
+```{r marginals-inst1, echo=echo_chunks, message=message_chunks}
 ```
 
 
 Scatterplots
----------------------------------------------------------------------------
+===========================================================================
 
 ```{r scatterplots, echo=echo_chunks, message=message_chunks, fig.width=7}
 ```
 
 
 Correlation Matrixes
----------------------------------------------------------------------------
+===========================================================================
 
 ```{r correlation-matrixes, echo=echo_chunks, message=message_chunks, fig.width=9, fig.height=9, results='asis'}
 ```
@@ -131,7 +129,6 @@ Final Model
 ```{r model-results-table, echo=echo_chunks, message=message_chunks, warning=TRUE}
 ```
 
-In the model that includes two predictors, the slope coefficent of `Miles per gallon` is `r summary(m2)$coefficients[2,1]`.
 
 
 Session Information {#session-info}
