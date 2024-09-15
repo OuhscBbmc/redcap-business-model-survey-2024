@@ -1,4 +1,4 @@
-map_to_label <- function(
+map_to_radio <- function(
   d,                               # the primary client table
   .variable,
   .category = .variable

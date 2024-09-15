@@ -279,14 +279,37 @@ ds <-
 d_lu <-
   config$path_variable_label_derived |>
   arrow::read_parquet() |>
-  dplyr::filter(category == .category)
-
-ds |>
+  dplyr::filter(category == .category) |>
+  dplyr::mutate(
+    label = paste0(category, "_", label),
+  ) |>
+  dplyr::select(
+    value,
+    label,
+  )
+d_wide <-
+  ds |>
   dplyr::select(
     institution_index,
     inst1_funding,
   ) |>
-  tidyr::separate_longer_delim(cols = inst1_funding, delim = ",")
+  tidyr::separate_longer_delim(cols = inst1_funding, delim = ",") |>
+  dplyr::left_join(d_lu, by = c("inst1_funding" = "value")) |>
+  dplyr::select(-inst1_funding) |>
+  tidyr::pivot_wider(
+    id_cols     = "institution_index",
+    names_from  = label,
+    values_from = label, # Dummy argument that's not really used.
+    values_fn   = \(x) {TRUE},
+    values_fill = FALSE
+  )
+
+# ds <-
+ds |>
+  dplyr::left_join(d_wide, by = "institution_index") |>
+  dplyr::select(
+    -!!"inst1_funding"
+  )
 
 ds <-
   ds |>
@@ -301,7 +324,7 @@ ds <-
         .default  = "Other" # As of Sept 2024, all other countries are <=10
       )
   ) |>
-  map_to_label("inst1_model") |> # defined in manipulation/retrieve-variable-labels.R
+  map_to_radio("inst1_model") |> # defined in manipulation/retrieve-variable-labels.R
   dplyr::mutate(
     inst1_complete  = REDCapR::constant_to_form_completion(inst1_complete),
   ) |>
