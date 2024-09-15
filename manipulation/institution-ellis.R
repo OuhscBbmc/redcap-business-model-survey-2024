@@ -288,7 +288,9 @@ ds <-
         .default  = "Other" # As of Sept 2024, all other countries are <=10
       )
   ) |>
-  map_to_radio(   "inst1_model") |> # defined in manipulation/retrieve-variable-labels.R
+  map_to_radio(   "inst1_status") |> # defined in manipulation/retrieve-variable-labels.R
+  map_to_radio(   "inst1_growth") |>
+  map_to_radio(   "inst1_model") |>
   map_to_checkbox("inst1_funding") |> # defined in manipulation/retrieve-variable-labels.R
   dplyr::mutate(
     inst1_complete  = REDCapR::constant_to_form_completion(inst1_complete),
@@ -298,13 +300,23 @@ ds <-
     -inst1_country,
   ) #|>  View()
 
+# ds$inst1_status
+
+# ---- reestablish-column-order ------------------------------------------------
+ds <-
+  ds |>
+  dplyr::select(
+    institution_index,
+    tidyselect::matches("inst1_(?!complete)", perl = TRUE), # A "negative-lookahead"
+    inst1_complete,
+  )
 
 # ---- verify-values -----------------------------------------------------------
 # OuhscMunge::verify_value_headstart(ds)
 checkmate::assert_integer(  ds$institution_index      , any.missing=F , lower=1, upper=999  , unique=T)
-checkmate::assert_integer(  ds$inst1_status           , any.missing=T , lower=2, upper=5    )
-checkmate::assert_integer(  ds$inst1_growth           , any.missing=T , lower=2, upper=5    )
-checkmate::assert_factor(   ds$inst1_model            , any.missing=T                       )
+checkmate::assert_factor(   ds$inst1_status           , any.missing=T)
+checkmate::assert_factor(   ds$inst1_growth           , any.missing=T)
+checkmate::assert_factor(   ds$inst1_model            , any.missing=T)
 # checkmate::assert_character(ds$inst1_funding          , any.missing=T , pattern="^.{1,7}$"  )
 checkmate::assert_logical(  ds$inst1_funding_institution   , any.missing=F                       )
 checkmate::assert_logical(  ds$inst1_funding_ctsa          , any.missing=F                       )
