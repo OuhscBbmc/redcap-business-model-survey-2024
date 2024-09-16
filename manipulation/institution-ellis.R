@@ -392,6 +392,33 @@ ds |>
     inst4_complete                = REDCapR::constant_to_form_completion(inst4_complete),
   ) |>
   map_to_checkbox(  "inst4_charge_type") |>
+  map_to_checkbox(  "inst4_charge_reason") |>
+  # map_to_checkbox(  "inst4_charge_staff_count") |>
+  # map_to_checkbox(  "inst4_charge_effort") |>
+  # map_to_checkbox(  "inst4_charge_success") |>
+  # map_to_checkbox(  "inst4_manage_satisfied") |>
+  # map_to_checkbox(  "inst4_regulatory") |>
+  # map_to_checkbox(  "inst4_regulatory_charge") |>
+  # map_to_checkbox(  "inst4_validation") |>
+  # map_to_checkbox(  "inst4_validation_initial") |>
+  # map_to_checkbox(  "inst4_validation_module") |>
+  # map_to_checkbox(  "inst4_validation_project") |>
+  # map_to_checkbox(  "inst4_validation_committee") |>
+  # map_to_checkbox(  "inst4_validation_staff_count") |>
+  # map_to_checkbox(  "inst4_validation_staff_level") |>
+  # map_to_checkbox(  "inst4_audit_support") |>
+  # map_to_checkbox(  "inst4_audit_status") |>
+  # map_to_checkbox(  "inst4_request_per_month_count") |>
+  # map_to_checkbox(  "inst4_ticket") |>
+  # map_to_checkbox(  "inst4_ticket_type") |>
+  # map_to_checkbox(  "inst4_ticket_like") |>
+  # map_to_checkbox(  "inst4_version_preclean") |>
+  # map_to_checkbox(  "inst4_release") |>
+  # map_to_checkbox(  "inst4_server_host") |>
+  # map_to_checkbox(  "inst4_server_manage") |>
+  # map_to_checkbox(  "inst4_host_cloud") |>
+  # map_to_checkbox(  "inst4_upgrade") |>
+  # map_to_checkbox(  "inst4_update_barriers") |>
   # dplyr::select(tidyselect::starts_with("inst4_version"))
   dplyr::select(tidyselect::starts_with("inst4_")) |>
   dplyr::select(
