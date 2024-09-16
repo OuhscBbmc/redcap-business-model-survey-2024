@@ -11,3 +11,14 @@ Notes for Ingestion Process
     * `active_projects`, limit upper bound to ~4k.
     * `logged_events`, limit upper bound to ~1M.
     * `em_no`, limit upper bound to ~25.
+
+
+
+Ideas for future surveys
+=====
+
+1. Control for institution type
+   1. university
+   1. health dept
+   1. nonprofit
+   1. commercial/company

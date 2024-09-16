@@ -147,9 +147,9 @@ col_types <- readr::cols_only(
   `server_manage`                           = readr::col_character(),
   `server_manage_other`                     = readr::col_character(),
   `host_cloud`                              = readr::col_double(),
-  `host_cloud_other`                        = readr::col_character(),
+  # `host_cloud_other`                        = readr::col_character(),
   `upgrade`                                 = readr::col_double(),
-  `upgrade_oth`                             = readr::col_character(),
+  # `upgrade_oth`                             = readr::col_character(),
   # `upgrade_needed`                          = readr::col_character(),
   `update_barriers`                         = readr::col_character(),
   # `update_barriers_other`                   = readr::col_character(),
@@ -246,37 +246,37 @@ ds <-
     inst3_train_other_charge            = `s_train_charge`,
     inst3_complete                      = `institutional_questionnaire3_complete`,
 
-    # charge_type                                         = `charge_type`,
-    # charge_reasons                                      = `charge_reasons`,
-    # charge_staff                                        = `charge_staff`,
-    # charge_effort                                       = `charge_effort`,
-    # charge_success                                      = `charge_success`,
-    # fee_mange_sat                                       = `fee_mange_sat`,
-    # sec_type                                            = `sec_type`,
-    # sec_charge                                          = `sec_charge`,
-    # sys_validation                                      = `sys_validation`,
-    # who_val_initial                                     = `who_val_initial`,
-    # module_val                                          = `module_val`,
-    # project_val                                         = `project_val`,
-    # rsvc                                                = `rsvc`,
-    # staff_val                                           = `staff_val`,
-    # sys_val_effort                                      = `sys_val_effort`,
-    # audit_support                                       = `audit_support`,
-    # audit_status                                        = `audit_status`,
-    # monthly_requests                                    = `monthly_requests`,
-    # ticket                                              = `ticket`,
-    # ticket_type                                         = `ticket_type`,
-    # likesetup_ticketing                                 = `likesetup_ticketing`,
-    # version                                             = `version`,
-    # release                                             = `release`,
-    # server_host                                         = `server_host`,
-    # server_manage                                       = `server_manage`,
-    # server_manage_other                                 = `server_manage_other`,
-    # host_cloud                                          = `host_cloud`,
-    # host_cloud_other                                    = `host_cloud_other`,
-    # upgrade                                             = `upgrade`,
-    # upgrade_oth                                         = `upgrade_oth`,
-    # update_barriers                                     = `update_barriers`,
+    inst4_charge_type                                         = `charge_type`,
+    inst4_charge_reason                                       = `charge_reasons`,
+    inst4_charge_staff_count                                  = `charge_staff`,
+    inst4_charge_effort                                       = `charge_effort`,
+    inst4_charge_success                                      = `charge_success`,
+    inst4_manage_satisfied                                    = `fee_mange_sat`,
+    inst4_regulatory                                          = `sec_type`,
+    inst4_regulatory_charge                                   = `sec_charge`,
+    inst4_validation                                          = `sys_validation`,
+    inst4_validation_initial                                  = `who_val_initial`,
+    inst4_validation_module                                   = `module_val`,
+    inst4_validation_project                                  = `project_val`,
+    inst4_validation_committee                                = `rsvc`,
+    inst4_validation_staff_count                              = `staff_val`,
+    inst4_validation_staff_level                              = `sys_val_effort`,
+    inst4_audit_support                                       = `audit_support`,
+    inst4_audit_status                                        = `audit_status`,
+    inst4_request_per_month_count                             = `monthly_requests`,
+    inst4_ticket                                              = `ticket`,
+    inst4_ticket_type                                         = `ticket_type`,
+    inst4_ticket_like                                         = `likesetup_ticketing`,
+    inst4_version_preclean                                    = `version`,
+    inst4_release                                             = `release`,
+    inst4_server_host                                         = `server_host`,
+    inst4_server_manage                                       = `server_manage`,
+    # inst4_server_manage_other                                 = `server_manage_other`,
+    inst4_host_cloud                                          = `host_cloud`,
+    # inst4_host_cloud_other                                    = `host_cloud_other`,
+    inst4_upgrade                                             = `upgrade`,
+    # inst4_upgrade_oth                                         = `upgrade_oth`,
+    inst4_update_barriers                                     = `update_barriers`,
     # institutional_questionnaire4_complete               = `institutional_questionnaire4_complete`,
   ) |>
   # dplyr::mutate(
@@ -380,6 +380,15 @@ ds <-
   map_to_radio("inst3_train_other_charge"  , .category = "always_sometimes_never")# |>
   # dplyr::select(tidyselect::starts_with("inst3_"))
 
+
+# ---- groom-institution-4 -----------------------------------------------------
+ds |>
+  dplyr::mutate(
+    inst4_version = sub("(?i)(?:\\b|v)(1\\d\\.\\d{1,2})", "\\1", inst4_version_preclean),
+    # inst4_version_major = sub(inst4_version)
+  ) |>
+  dplyr::select(tidyselect::starts_with("inst4_version"))
+  # dplyr::select(tidyselect::starts_with("inst4_"))
 # ---- reestablish-column-order ------------------------------------------------
 ds <-
   ds |>
