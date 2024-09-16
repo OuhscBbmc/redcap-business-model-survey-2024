@@ -383,17 +383,25 @@ ds <-
 
 # ---- groom-institution-4 -----------------------------------------------------
 warning("inst4 instrument hasn't been ingested yet.")
-ds |>
+ds <-
+  ds |>
   dplyr::mutate(
     inst4_version = sub("(?i).*?(?:\\b|v)(1\\d\\.\\d{1,2}).+$", "\\1", inst4_version_preclean),
     inst4_version_major = sub("^(\\d{1,2})\\.\\d{1,2}", "\\1", inst4_version)
   ) |>
-  dplyr::mutate(
-    inst4_complete                = REDCapR::constant_to_form_completion(inst4_complete),
-  ) |>
   map_to_checkbox(  "inst4_charge_type") |>
   map_to_checkbox(  "inst4_charge_reason") |>
-  # map_to_checkbox(  "inst4_charge_staff_count") |>
+  dplyr::mutate(
+    inst4_charge_staff_count =
+      dplyr::case_match(
+        inst1_model,
+        "no/minimal user support" ~ 0L,
+        "no charge"               ~ 0L,
+        "charge users"            ~ inst4_charge_staff_count,
+        "both"                    ~ inst4_charge_staff_count,
+        .default                  = NA_integer_
+      )
+  ) |>
   # map_to_checkbox(  "inst4_charge_effort") |>
   # map_to_checkbox(  "inst4_charge_success") |>
   # map_to_checkbox(  "inst4_manage_satisfied") |>
@@ -419,8 +427,11 @@ ds |>
   # map_to_checkbox(  "inst4_host_cloud") |>
   # map_to_checkbox(  "inst4_upgrade") |>
   # map_to_checkbox(  "inst4_update_barriers") |>
+  dplyr::mutate(
+    inst4_complete                = REDCapR::constant_to_form_completion(inst4_complete),
+  ) |>
   # dplyr::select(tidyselect::starts_with("inst4_version"))
-  dplyr::select(tidyselect::starts_with("inst4_")) |>
+  # dplyr::select(tidyselect::starts_with("inst4_")) |>
   dplyr::select(
     -inst4_version_preclean
   )
@@ -441,8 +452,7 @@ ds <-
   )
 
 # ---- verify-values-inst1 -----------------------------------------------------------
-# OuhscMunge::verify_value_headstart(ds)
-checkmate::assert_integer(  ds$institution_index      , any.missing=F , lower=1, upper=999  , unique=T)
+#checkmate::assert_integer(  ds$institution_index      , any.missing=F , lower=1, upper=999  , unique=T)
 checkmate::assert_character(ds$inst1_country_cut3     , any.missing=F , pattern="^.{3,9}$"  )
 checkmate::assert_logical(  ds$inst1_country_usa       , any.missing=F                       )
 checkmate::assert_factor(   ds$inst1_status           , any.missing=T)
@@ -531,6 +541,50 @@ checkmate::assert_factor(  ds$inst3_train_live_charge  , any.missing=T)
 checkmate::assert_factor(  ds$inst3_train_other        , any.missing=T)
 checkmate::assert_factor(  ds$inst3_train_other_charge , any.missing=T)
 checkmate::assert_factor(  ds$inst3_complete           , any.missing=F)
+
+# ---- verify-values-inst4 -----------------------------------------------------
+# OuhscMunge::verify_value_headstart(ds)
+checkmate::assert_logical(  ds$inst4_charge_type_effort_hourly , any.missing=F                       )
+checkmate::assert_logical(  ds$inst4_charge_type_effort_fte    , any.missing=F                       )
+checkmate::assert_logical(  ds$inst4_charge_type_service       , any.missing=F                       )
+checkmate::assert_logical(  ds$inst4_charge_type_other         , any.missing=F                       )
+checkmate::assert_logical(  ds$inst4_charge_type_subscription  , any.missing=F                       )
+checkmate::assert_logical(  ds$inst4_charge_reason_cost_recovery       , any.missing=F                       )
+checkmate::assert_logical(  ds$inst4_charge_reason_demand_management   , any.missing=F                       )
+checkmate::assert_logical(  ds$inst4_charge_reason_additional_support, , any.missing=F                       )
+checkmate::assert_logical(  ds$inst4_charge_reason_advanced_services   , any.missing=F                       )
+checkmate::assert_logical(  ds$inst4_charge_reason_additional_fte      , any.missing=F                       )
+checkmate::assert_logical(  ds$inst4_charge_reason_support_specific    , any.missing=F                       )
+checkmate::assert_logical(  ds$inst4_charge_reason_other               , any.missing=F                       )
+checkmate::assert_integer(  ds$inst4_charge_staff_count      , any.missing=T , lower=0, upper=15   )
+
+# checkmate::assert_integer(  ds$inst4_charge_effort           , any.missing=T , lower=2, upper=3    )
+# checkmate::assert_integer(  ds$inst4_charge_success          , any.missing=T , lower=1, upper=3    )
+# checkmate::assert_integer(  ds$inst4_manage_satisfied        , any.missing=T , lower=1, upper=5    )
+# checkmate::assert_character(ds$inst4_regulatory              , any.missing=T , pattern="^.{1,11}$" )
+# checkmate::assert_integer(  ds$inst4_regulatory_charge       , any.missing=T , lower=1, upper=99   )
+# checkmate::assert_integer(  ds$inst4_validation              , any.missing=T , lower=0, upper=2    )
+# checkmate::assert_character(ds$inst4_validation_initial      , any.missing=T , pattern="^.{1,5}$"  )
+# checkmate::assert_numeric(  ds$inst4_validation_module       , any.missing=T , lower=0, upper=1    )
+# checkmate::assert_numeric(  ds$inst4_validation_project      , any.missing=T , lower=0, upper=1    )
+# checkmate::assert_numeric(  ds$inst4_validation_committee    , any.missing=T , lower=0, upper=1    )
+# checkmate::assert_numeric(  ds$inst4_validation_staff_count  , any.missing=T , lower=1, upper=8    )
+# checkmate::assert_numeric(  ds$inst4_validation_staff_level  , any.missing=T , lower=1, upper=3    )
+# checkmate::assert_character(ds$inst4_audit_support           , any.missing=T , pattern="^.{1,9}$"  )
+# checkmate::assert_numeric(  ds$inst4_audit_status            , any.missing=T , lower=0, upper=99   )
+# checkmate::assert_numeric(  ds$inst4_request_per_month_count , any.missing=T , lower=3, upper=1100 )
+# checkmate::assert_numeric(  ds$inst4_ticket                  , any.missing=T , lower=0, upper=1    )
+# checkmate::assert_character(ds$inst4_ticket_type             , any.missing=T , pattern="^.{1,5}$"  )
+# checkmate::assert_numeric(  ds$inst4_ticket_like             , any.missing=T , lower=1, upper=3    )
+# checkmate::assert_character(ds$inst4_release                 , any.missing=T , pattern="^.{1,3}$"  )
+# checkmate::assert_numeric(  ds$inst4_server_host             , any.missing=T , lower=1, upper=99   )
+# checkmate::assert_character(ds$inst4_server_manage           , any.missing=T , pattern="^.{1,5}$"  )
+# checkmate::assert_numeric(  ds$inst4_host_cloud              , any.missing=T , lower=1, upper=98   )
+# checkmate::assert_numeric(  ds$inst4_upgrade                 , any.missing=T , lower=1, upper=98   )
+# checkmate::assert_character(ds$inst4_update_barriers         , any.missing=T , pattern="^.{1,6}$"  )
+# checkmate::assert_factor(   ds$inst4_complete                , any.missing=F                       )
+# checkmate::assert_character(ds$inst4_version                 , any.missing=T , pattern="^.{4,5}$"  )
+# checkmate::assert_character(ds$inst4_version_major           , any.missing=T , pattern="^.{2,2}$"  )
 
 # ---- specify-columns-to-upload -----------------------------------------------
 # Print colnames that `dplyr::select()`  should contain below:
@@ -631,6 +685,7 @@ ds_slim <-
     inst3_train_other,
     inst3_train_other_charge,
     inst3_complete,
+
   )
 
 ds_slim
