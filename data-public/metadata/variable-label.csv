@@ -55,3 +55,6 @@ inst4_charge_reason,checkbox,4,"advanced_services",4,"To provide advanced servic
 inst4_charge_reason,checkbox,5,"additional_fte",5,"To fund additional FTE support for the program"
 inst4_charge_reason,checkbox,6,"support_specific",6,"To support specific projects/grants/contracts/departments"
 inst4_charge_reason,checkbox,98,"other",98,"Other {charge_reasons_other}"
+inst4_charge_effort,radio,1,"Overstaffed",1,"Overstaffed"
+inst4_charge_effort,radio,2,"Appropriately staffed",2,"Appropriately staffed"
+inst4_charge_effort,radio,3,"Understaffed",3,"Understaffed"
