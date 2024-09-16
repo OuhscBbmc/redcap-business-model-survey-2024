@@ -103,8 +103,8 @@ Warning: Removed 10 rows containing non-finite outside the scale range
 ```
 
 ```
-Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-parametric, : span too small.  fewer data values than degrees of freedom.
+Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric, :
+span too small.  fewer data values than degrees of freedom.
 ```
 
 ```
@@ -203,7 +203,7 @@ For the sake of documentation and reproducibility, the current report was render
   <summary>Environment <span class="glyphicon glyphicon-plus-sign"></span></summary>
 
 ```
-─ Session info ─────────────────────────────────────────────────────────────
+─ Session info ─────────────────────────────────────────────────────────────────
  setting  value
  version  R version 4.4.1 Patched (2024-07-03 r86870 ucrt)
  os       Windows 11 x64 (build 22631)
@@ -217,7 +217,7 @@ For the sake of documentation and reproducibility, the current report was render
  rstudio  2024.04.2+764 Chocolate Cosmos (desktop)
  pandoc   3.1.11 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
 
-─ Packages ─────────────────────────────────────────────────────────────────
+─ Packages ─────────────────────────────────────────────────────────────────────
  ! package         * version    date (UTC) lib source
  D archive           1.1.8      2024-04-28 [1] CRAN (R 4.4.0)
    arrow             17.0.0.1   2024-08-21 [1] CRAN (R 4.4.1)
@@ -272,6 +272,7 @@ For the sake of documentation and reproducibility, the current report was render
  P parallel          4.4.1      2024-07-03 [3] local
    pillar            1.9.0      2023-03-22 [1] CRAN (R 4.4.0)
    pkgconfig         2.0.3      2019-09-22 [1] CRAN (R 4.4.0)
+   pkgload           1.4.0      2024-06-28 [1] CRAN (R 4.4.1)
    purrr             1.0.2      2023-08-10 [1] CRAN (R 4.4.0)
    R6                2.5.1      2021-08-19 [1] CRAN (R 4.4.0)
    RColorBrewer      1.1-3      2022-04-03 [1] CRAN (R 4.4.0)
@@ -310,10 +311,10 @@ For the sake of documentation and reproducibility, the current report was render
  P ── Loaded and on-disk path mismatch.
  D ── DLL MD5 mismatch, broken installation.
 
-────────────────────────────────────────────────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
 ```
 </details>
 
 
 
-Report rendered by wibea at 2024-09-16, 09:07 -0500 in 11 seconds.
+Report rendered by wibea at 2024-09-16, 12:32 -0500 in 10 seconds.

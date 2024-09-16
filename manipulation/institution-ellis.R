@@ -277,7 +277,7 @@ ds <-
     inst4_upgrade                                             = `upgrade`,
     # inst4_upgrade_oth                                         = `upgrade_oth`,
     inst4_update_barriers                                     = `update_barriers`,
-    # institutional_questionnaire4_complete               = `institutional_questionnaire4_complete`,
+    inst4_complete                                            = `institutional_questionnaire4_complete`,
   ) |>
   # dplyr::mutate(
   # ) |>
@@ -382,13 +382,21 @@ ds <-
 
 
 # ---- groom-institution-4 -----------------------------------------------------
+warning("inst4 instrument hasn't been ingested yet.")
 ds |>
   dplyr::mutate(
-    inst4_version = sub("(?i)(?:\\b|v)(1\\d\\.\\d{1,2})", "\\1", inst4_version_preclean),
-    # inst4_version_major = sub(inst4_version)
+    inst4_version = sub("(?i).*?(?:\\b|v)(1\\d\\.\\d{1,2}).+$", "\\1", inst4_version_preclean),
+    inst4_version_major = sub("^(\\d{1,2})\\.\\d{1,2}", "\\1", inst4_version)
   ) |>
-  dplyr::select(tidyselect::starts_with("inst4_version"))
-  # dplyr::select(tidyselect::starts_with("inst4_"))
+  dplyr::mutate(
+    inst4_complete                = REDCapR::constant_to_form_completion(inst4_complete),
+  ) |>
+  # dplyr::select(tidyselect::starts_with("inst4_version"))
+  dplyr::select(tidyselect::starts_with("inst4_")) |>
+  dplyr::select(
+    -inst4_version_preclean
+  )
+
 # ---- reestablish-column-order ------------------------------------------------
 ds <-
   ds |>
@@ -400,6 +408,8 @@ ds <-
     inst2_complete,
     tidyselect::matches("inst3_(?!complete)", perl = TRUE),
     inst3_complete,
+    tidyselect::matches("inst4_(?!complete)", perl = TRUE),
+    inst4_complete,
   )
 
 # ---- verify-values-inst1 -----------------------------------------------------------
