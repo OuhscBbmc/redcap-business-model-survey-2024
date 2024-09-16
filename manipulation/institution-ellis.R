@@ -391,6 +391,7 @@ ds |>
   dplyr::mutate(
     inst4_complete                = REDCapR::constant_to_form_completion(inst4_complete),
   ) |>
+  map_to_checkbox(  "inst4_charge_type") |>
   # dplyr::select(tidyselect::starts_with("inst4_version"))
   dplyr::select(tidyselect::starts_with("inst4_")) |>
   dplyr::select(

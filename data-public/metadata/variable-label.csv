@@ -43,3 +43,8 @@ inst2_authenticate,radio,1,"table",1,
 inst2_authenticate,radio,2,"institution",2,
 inst2_authenticate,radio,3,"institution & table",3,
 inst2_authenticate,radio,98,"I don't know",98,
+inst4_charge_type,checkbox,1,effort_hourly,1,"Bill by time/effort (ex: hourly)"
+inst4_charge_type,checkbox,2,effort_fte,2,"Staff % Effort (designated percent allocation to grant/contract/department)"
+inst4_charge_type,checkbox,3,service,3,"Published services with rates"
+inst4_charge_type,checkbox,4,subscription,4,"Subscription"
+inst4_charge_type,checkbox,98,other,98,"Other"
