@@ -24,6 +24,7 @@ config                         <- config::get()
 
 col_types <- readr::cols_only(
   `category`          = readr::col_character(),
+  `type`              = readr::col_character(),
   `value`             = readr::col_character(),
   `label`             = readr::col_character(),
   `display_order`     = readr::col_double()
@@ -43,14 +44,19 @@ ds <-
   ds |>
   dplyr::select(
     category,
+    type,
     value,
     label,
     display_order,
+  ) |>
+  dplyr::mutate(
+    type = factor(type, levels = c("radio", "checkbox")),
   )
 
 # ---- verify-values -----------------------------------------------------------
 # OuhscMunge::verify_value_headstart(ds)
 checkmate::assert_character(ds$category       , any.missing=F , pattern="^.{2,50}$" )
+checkmate::assert_factor(   ds$type           , any.missing=F )
 checkmate::assert_character(ds$value          , any.missing=F , pattern="^.{1,10}$" )
 checkmate::assert_character(ds$label          , any.missing=F , pattern="^.{1,100}$")
 checkmate::assert_numeric(  ds$display_order  , any.missing=F , lower=0, upper=99)
@@ -71,6 +77,7 @@ ds_slim <-
   # dplyr::slice(1:100) |>
   dplyr::select(
     category,
+    type,
     value,
     label,
     display_order,

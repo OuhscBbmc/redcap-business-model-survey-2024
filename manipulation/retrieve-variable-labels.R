@@ -19,12 +19,16 @@ map_to_radio <- function(
     # ) |>
     dplyr::filter(category == .category)
 
+  checkmate::assert_factor(d_lu$type, any.missing = FALSE)
+  if (any(d_lu$type != "radio")) {
+    stop("All selected entries must be for radio buttons.")
+  }
+
   level_order <-
     d_lu |>
     dplyr::arrange(display_order) |>
     dplyr::pull(label) |>
     unique()
-
 
   d_lu <-
     d_lu |>
@@ -78,7 +82,14 @@ map_to_checkbox <- function( # .variable = "inst1_funding"
   d_lu <-
     config$path_variable_label_derived |>
     arrow::read_parquet() |>
-    dplyr::filter(category == .category) |>
+    dplyr::filter(category == .category)
+
+  checkmate::assert_factor(d_lu$type, any.missing = FALSE)
+  if (any(d_lu$type != "checkbox")) {
+    stop("All selected entries must be for checkboxes")
+  }
+  d_lu <-
+    d_lu |>
     dplyr::mutate(
       label = paste0(category, "_", label),
     ) |>
