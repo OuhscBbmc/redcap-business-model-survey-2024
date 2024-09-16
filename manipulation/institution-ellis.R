@@ -403,7 +403,7 @@ ds <-
       )
   ) |>
   map_to_radio(  "inst4_charge_effort") |>
-  # map_to_checkbox(  "inst4_charge_success") |>
+  map_to_radio(  "inst4_charge_success") |>
   # map_to_checkbox(  "inst4_manage_satisfied") |>
   # map_to_checkbox(  "inst4_regulatory") |>
   # map_to_checkbox(  "inst4_regulatory_charge") |>
@@ -558,7 +558,7 @@ checkmate::assert_logical(  ds$inst4_charge_reason_support_specific    , any.mis
 checkmate::assert_logical(  ds$inst4_charge_reason_other               , any.missing=F                       )
 checkmate::assert_integer(  ds$inst4_charge_staff_count      , any.missing=T , lower=0, upper=15   )
 checkmate::assert_factor(  ds$inst4_charge_effort           , any.missing=T )
-# checkmate::assert_integer(  ds$inst4_charge_success          , any.missing=T , lower=1, upper=3    )
+checkmate::assert_factor(  ds$inst4_charge_success          , any.missing=T )
 # checkmate::assert_integer(  ds$inst4_manage_satisfied        , any.missing=T , lower=1, upper=5    )
 # checkmate::assert_character(ds$inst4_regulatory              , any.missing=T , pattern="^.{1,11}$" )
 # checkmate::assert_integer(  ds$inst4_regulatory_charge       , any.missing=T , lower=1, upper=99   )

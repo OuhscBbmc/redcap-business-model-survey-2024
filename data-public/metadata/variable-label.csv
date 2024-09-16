@@ -58,3 +58,6 @@ inst4_charge_reason,checkbox,98,"other",98,"Other {charge_reasons_other}"
 inst4_charge_effort,radio,1,"Overstaffed",1,"Overstaffed"
 inst4_charge_effort,radio,2,"Appropriately staffed",2,"Appropriately staffed"
 inst4_charge_effort,radio,3,"Understaffed",3,"Understaffed"
+inst4_charge_success,radio,1,"Not at all",1,"Not at all"`
+inst4_charge_success,radio,2,"Somewhat",2,"Somewhat"`
+inst4_charge_success,radio,3,"Very",3,"Very"`
