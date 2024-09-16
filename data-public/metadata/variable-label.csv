@@ -1,4 +1,8 @@
 category,value,label,display_order,comment
+always_sometimes_never,1,"always",1,
+always_sometimes_never,2,"sometimes",2,
+always_sometimes_never,3,"never",3,
+always_sometimes_never,99,"don't know",99,
 inst1_status,1,"startup",1,
 inst1_status,2,"beginner",2,
 inst1_status,3,"intermediate",3,

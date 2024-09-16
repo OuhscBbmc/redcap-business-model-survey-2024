@@ -26,6 +26,7 @@ config                         <- config::get()
 #   OuhscMunge::readr_spec_aligned(config$path_institution_raw)
 
 col_types <- readr::cols_only(
+  # inst1
   `country`                                 = readr::col_integer(),
   `st_region`                               = readr::col_character(),
   `program_status`                          = readr::col_integer(),
@@ -45,6 +46,8 @@ col_types <- readr::cols_only(
   `sal_mid`                                 = readr::col_character(),
   `sal_sen`                                 = readr::col_character(),
   `institutional_questionnaire_complete`    = readr::col_integer(),
+
+  # inst2
   `redcap_instance_count`                   = readr::col_integer(),
   `redcap_pop`                              = readr::col_character(),
   `redcap_start_date`                       = readr::col_date(format = ""),
@@ -59,6 +62,8 @@ col_types <- readr::cols_only(
   `ccus_addevents`                          = readr::col_integer(),
   `ccus_authenticate`                       = readr::col_integer(),
   `institutional_questionnaire2_complete`   = readr::col_integer(),
+
+  # inst3
   `manageusers`                             = readr::col_integer(),
   `create`                                  = readr::col_integer(),
   `create_charge`                           = readr::col_integer(),
@@ -101,6 +106,8 @@ col_types <- readr::cols_only(
   `s_train`                                 = readr::col_integer(),
   `s_train_charge`                          = readr::col_integer(),
   `institutional_questionnaire3_complete`   = readr::col_integer(),
+
+  # inst4
   `charge_type`                             = readr::col_character(),
   `charge_reasons`                          = readr::col_character(),
   `charge_staff`                            = readr::col_integer(),
@@ -196,48 +203,49 @@ ds <-
     inst2_authenticate                                  = `ccus_authenticate`,
     inst2_complete                                      = `institutional_questionnaire2_complete`,
 
-    # manageusers                                         = `manageusers`,
-    # create                                              = `create`,
-    # create_charge                                       = `create_charge`,
-    # design                                              = `design`,
-    # design_charge                                       = `design_charge`,
-    # build                                               = `build`,
-    # build_charge                                        = `build_charge`,
-    # maintain                                            = `maintain`,
-    # maintain_charge                                     = `maintain_charge`,
-    # ts                                                  = `ts`,
-    # ts_charge                                           = `ts_charge`,
-    # em                                                  = `em`,
-    # em_charge                                           = `em_charge`,
-    # cc                                                  = `cc`,
-    # cc_charge                                           = `cc_charge`,
-    # api                                                 = `api`,
-    # api_charge                                          = `api_charge`,
-    # recovery                                            = `recovery`,
-    # recovery_charge                                     = `recovery_charge`,
-    # mobile                                              = `mobile`,
-    # mobile_charge                                       = `mobile_charge`,
-    # random                                              = `random`,
-    # random_charge                                       = `random_charge`,
-    # econ                                                = `econ`,
-    # econ_charge                                         = `econ_charge`,
-    # mycap                                               = `mycap`,
-    # mycap_charge                                        = `mycap_charge`,
-    # mlm                                                 = `mlm`,
-    # mlm_charge                                          = `mlm_charge`,
-    # cdp                                                 = `cdp`,
-    # cdp_charge                                          = `cdp_charge`,
-    # cdm                                                 = `cdm`,
-    # cdm_charge                                          = `cdm_charge`,
-    # group                                               = `group`,
-    # group_charge                                        = `group_charge`,
-    # ind                                                 = `ind`,
-    # ind_charge                                          = `ind_charge`,
-    # l_train                                             = `l_train`,
-    # l_train_charge                                      = `l_train_charge`,
-    # s_train                                             = `s_train`,
-    # s_train_charge                                      = `s_train_charge`,
-    # institutional_questionnaire3_complete               = `institutional_questionnaire3_complete`,
+    inst3_users                         = `manageusers`,
+    inst3_create                        = `create`,
+    inst3_create_charge                 = `create_charge`,
+    inst3_design                        = `design`,
+    inst3_design_charge                 = `design_charge`,
+    inst3_build                         = `build`,
+    inst3_build_charge                  = `build_charge`,
+    inst3_maintain                      = `maintain`,
+    inst3_maintain_charge               = `maintain_charge`,
+    inst3_ts                            = `ts`,
+    inst3_ts_charge                     = `ts_charge`,
+    inst3_em                            = `em`,
+    inst3_em_charge                     = `em_charge`,
+    inst3_cc                            = `cc`,
+    inst3_cc_charge                     = `cc_charge`,
+    inst3_api                           = `api`,
+    inst3_api_charge                    = `api_charge`,
+    inst3_recovery                      = `recovery`,
+    inst3_recovery_charge               = `recovery_charge`,
+    inst3_mobile                        = `mobile`,
+    inst3_mobile_charge                 = `mobile_charge`,
+    inst3_random                        = `random`,
+    inst3_random_charge                 = `random_charge`,
+    inst3_econ                          = `econ`,
+    inst3_econ_charge                   = `econ_charge`,
+    inst3_mycap                         = `mycap`,
+    inst3_mycap_charge                  = `mycap_charge`,
+    inst3_mlm                           = `mlm`,
+    inst3_mlm_charge                    = `mlm_charge`,
+    inst3_cdp                           = `cdp`,
+    inst3_cdp_charge                    = `cdp_charge`,
+    inst3_cdm                           = `cdm`,
+    inst3_cdm_charge                    = `cdm_charge`,
+    inst3_group                         = `group`,
+    inst3_group_charge                  = `group_charge`,
+    inst3_ind                           = `ind`,
+    inst3_ind_charge                    = `ind_charge`,
+    inst3_train_live                    = `l_train`,
+    inst3_train_live_charge             = `l_train_charge`,
+    inst3_train_other                   = `s_train`,
+    inst3_train_other_charge            = `s_train_charge`,
+    inst3_complete                      = `institutional_questionnaire3_complete`,
+
     # charge_type                                         = `charge_type`,
     # charge_reasons                                      = `charge_reasons`,
     # charge_staff                                        = `charge_staff`,
@@ -305,7 +313,7 @@ ds <-
 
 # ---- groom-institution-2 -----------------------------------------------------
 ds <-
-ds |>
+  ds |>
   dplyr::mutate(
     inst2_start_year              = as.integer(lubridate::year(inst2_start_date)),
     inst2_instance_count          = pmin(inst2_instance_count_uncapped, 10L),
@@ -323,6 +331,55 @@ ds |>
     -inst2_start_date
   )
 
+# ---- groom-institution-3 -----------------------------------------------------
+ds <-
+  ds |>
+  dplyr::mutate(
+    inst3_complete                = REDCapR::constant_to_form_completion(inst3_complete),
+  ) |>
+  map_to_radio("inst3_users"               , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_create"              , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_create_charge"       , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_design"              , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_design_charge"       , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_build"               , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_build_charge"        , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_maintain"            , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_maintain_charge"     , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_ts"                  , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_ts_charge"           , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_em"                  , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_em_charge"           , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_cc"                  , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_cc_charge"           , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_api"                 , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_api_charge"          , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_recovery"            , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_recovery_charge"     , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_mobile"              , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_mobile_charge"       , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_random"              , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_random_charge"       , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_econ"                , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_econ_charge"         , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_mycap"               , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_mycap_charge"        , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_mlm"                 , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_mlm_charge"          , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_cdp"                 , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_cdp_charge"          , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_cdm"                 , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_cdm_charge"          , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_group"               , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_group_charge"        , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_ind"                 , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_ind_charge"          , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_train_live"          , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_train_live_charge"   , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_train_other"         , .category = "always_sometimes_never") |>
+  map_to_radio("inst3_train_other_charge"  , .category = "always_sometimes_never")# |>
+  # dplyr::select(tidyselect::starts_with("inst3_"))
+
 # ---- reestablish-column-order ------------------------------------------------
 ds <-
   ds |>
@@ -330,8 +387,10 @@ ds <-
     institution_index,
     tidyselect::matches("inst1_(?!complete)", perl = TRUE), # A "negative-lookahead"
     inst1_complete,
-    tidyselect::matches("inst2_(?!complete)", perl = TRUE), # A "negative-lookahead"
+    tidyselect::matches("inst2_(?!complete)", perl = TRUE),
     inst2_complete,
+    tidyselect::matches("inst3_(?!complete)", perl = TRUE),
+    inst3_complete,
   )
 
 # ---- verify-values-inst1 -----------------------------------------------------------
@@ -381,6 +440,50 @@ checkmate::assert_logical( ds$inst2_allow_repeating_change        , any.missing=
 checkmate::assert_logical( ds$inst2_allow_events                  , any.missing=T                             )
 checkmate::assert_factor(  ds$inst2_authenticate                  , any.missing=T                             )
 checkmate::assert_factor(  ds$inst2_complete                      , any.missing=F                             )
+
+# ---- verify-values-inst3 -----------------------------------------------------------
+checkmate::assert_factor(  ds$inst3_users              , any.missing=T)
+checkmate::assert_factor(  ds$inst3_create             , any.missing=T)
+checkmate::assert_factor(  ds$inst3_create_charge      , any.missing=T)
+checkmate::assert_factor(  ds$inst3_design             , any.missing=T)
+checkmate::assert_factor(  ds$inst3_design_charge      , any.missing=T)
+checkmate::assert_factor(  ds$inst3_build              , any.missing=T)
+checkmate::assert_factor(  ds$inst3_build_charge       , any.missing=T)
+checkmate::assert_factor(  ds$inst3_maintain           , any.missing=T)
+checkmate::assert_factor(  ds$inst3_maintain_charge    , any.missing=T)
+checkmate::assert_factor(  ds$inst3_ts                 , any.missing=T)
+checkmate::assert_factor(  ds$inst3_ts_charge          , any.missing=T)
+checkmate::assert_factor(  ds$inst3_em                 , any.missing=T)
+checkmate::assert_factor(  ds$inst3_em_charge          , any.missing=T)
+checkmate::assert_factor(  ds$inst3_cc                 , any.missing=T)
+checkmate::assert_factor(  ds$inst3_cc_charge          , any.missing=T)
+checkmate::assert_factor(  ds$inst3_api                , any.missing=T)
+checkmate::assert_factor(  ds$inst3_api_charge         , any.missing=T)
+checkmate::assert_factor(  ds$inst3_recovery           , any.missing=T)
+checkmate::assert_factor(  ds$inst3_recovery_charge    , any.missing=T)
+checkmate::assert_factor(  ds$inst3_mobile             , any.missing=T)
+checkmate::assert_factor(  ds$inst3_mobile_charge      , any.missing=T)
+checkmate::assert_factor(  ds$inst3_random             , any.missing=T)
+checkmate::assert_factor(  ds$inst3_random_charge      , any.missing=T)
+checkmate::assert_factor(  ds$inst3_econ               , any.missing=T)
+checkmate::assert_factor(  ds$inst3_econ_charge        , any.missing=T)
+checkmate::assert_factor(  ds$inst3_mycap              , any.missing=T)
+checkmate::assert_factor(  ds$inst3_mycap_charge       , any.missing=T)
+checkmate::assert_factor(  ds$inst3_mlm                , any.missing=T)
+checkmate::assert_factor(  ds$inst3_mlm_charge         , any.missing=T)
+checkmate::assert_factor(  ds$inst3_cdp                , any.missing=T)
+checkmate::assert_factor(  ds$inst3_cdp_charge         , any.missing=T)
+checkmate::assert_factor(  ds$inst3_cdm                , any.missing=T)
+checkmate::assert_factor(  ds$inst3_cdm_charge         , any.missing=T)
+checkmate::assert_factor(  ds$inst3_group              , any.missing=T)
+checkmate::assert_factor(  ds$inst3_group_charge       , any.missing=T)
+checkmate::assert_factor(  ds$inst3_ind                , any.missing=T)
+checkmate::assert_factor(  ds$inst3_ind_charge         , any.missing=T)
+checkmate::assert_factor(  ds$inst3_train_live         , any.missing=T)
+checkmate::assert_factor(  ds$inst3_train_live_charge  , any.missing=T)
+checkmate::assert_factor(  ds$inst3_train_other        , any.missing=T)
+checkmate::assert_factor(  ds$inst3_train_other_charge , any.missing=T)
+checkmate::assert_factor(  ds$inst3_complete           , any.missing=F)
 
 # ---- specify-columns-to-upload -----------------------------------------------
 # Print colnames that `dplyr::select()`  should contain below:
@@ -438,6 +541,49 @@ ds_slim <-
     inst2_allow_events,
     inst2_authenticate,
     inst2_complete,
+
+    inst3_users,
+    inst3_create,
+    inst3_create_charge,
+    inst3_design,
+    inst3_design_charge,
+    inst3_build,
+    inst3_build_charge,
+    inst3_maintain,
+    inst3_maintain_charge,
+    inst3_ts,
+    inst3_ts_charge,
+    inst3_em,
+    inst3_em_charge,
+    inst3_cc,
+    inst3_cc_charge,
+    inst3_api,
+    inst3_api_charge,
+    inst3_recovery,
+    inst3_recovery_charge,
+    inst3_mobile,
+    inst3_mobile_charge,
+    inst3_random,
+    inst3_random_charge,
+    inst3_econ,
+    inst3_econ_charge,
+    inst3_mycap,
+    inst3_mycap_charge,
+    inst3_mlm,
+    inst3_mlm_charge,
+    inst3_cdp,
+    inst3_cdp_charge,
+    inst3_cdm,
+    inst3_cdm_charge,
+    inst3_group,
+    inst3_group_charge,
+    inst3_ind,
+    inst3_ind_charge,
+    inst3_train_live,
+    inst3_train_live_charge,
+    inst3_train_other,
+    inst3_train_other_charge,
+    inst3_complete,
   )
 
 ds_slim

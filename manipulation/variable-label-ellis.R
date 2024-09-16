@@ -53,7 +53,7 @@ ds <-
 checkmate::assert_character(ds$category       , any.missing=F , pattern="^.{2,50}$" )
 checkmate::assert_character(ds$value          , any.missing=F , pattern="^.{1,10}$" )
 checkmate::assert_character(ds$label          , any.missing=F , pattern="^.{1,100}$")
-checkmate::assert_numeric(  ds$display_order  , any.missing=F , lower=0, upper=98)
+checkmate::assert_numeric(  ds$display_order  , any.missing=F , lower=0, upper=99)
 
 # Assert the combination is unique
 combo <- paste0(ds$category, "---", ds$value)
