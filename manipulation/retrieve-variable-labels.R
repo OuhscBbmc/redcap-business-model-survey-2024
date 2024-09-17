@@ -93,14 +93,14 @@ map_to_checkbox <- function( # .variable = "inst1_funding"
     dplyr::mutate(
       label = paste0(category, "_", label),
     ) |>
-    # dplyr::arrange(display_order) |>
+    dplyr::arrange(display_order) |>
     dplyr::select(
       value,
       label,
-    ) #|>
-    # dplyr::mutate(
-    #   label = factor(label)
-    # )
+    ) |>
+    dplyr::mutate(
+      label = factor(label)
+    )
 
   by <- rlang::set_names(x = "value", nm = .variable)
 
