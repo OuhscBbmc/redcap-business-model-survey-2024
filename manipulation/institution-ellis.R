@@ -420,7 +420,7 @@ ds <-
   map_to_checkbox("inst4_audit_support") |>
   map_to_radio(  "inst4_audit_status", "yes_no_dont_know") |>
   map_to_radio(   "inst4_ticket", "yes_no_dont_know") |>
-  # map_to_checkbox(  "inst4_ticket_type") |>
+  map_to_checkbox("inst4_ticket_type") |>
   # map_to_checkbox(  "inst4_ticket_like") |>
   # map_to_checkbox(  "inst4_version_preclean") |>
   # map_to_checkbox(  "inst4_release") |>
@@ -585,7 +585,6 @@ checkmate::assert_factor(  ds$inst4_validation_project      , any.missing=T )
 checkmate::assert_factor(  ds$inst4_validation_committee    , any.missing=T )
 checkmate::assert_integer( ds$inst4_validation_staff_count  , any.missing=T , lower=1, upper=8    )
 checkmate::assert_factor(  ds$inst4_validation_staff_level  , any.missing=T )
-
 checkmate::assert_logical(  ds$inst4_audit_support_redcap_admins            , any.missing=F )
 checkmate::assert_logical(  ds$inst4_audit_support_research_compliance      , any.missing=F )
 checkmate::assert_logical(  ds$inst4_audit_support_cto                      , any.missing=F )
@@ -597,7 +596,14 @@ checkmate::assert_logical(  ds$inst4_audit_support_other                    , an
 checkmate::assert_factor(   ds$inst4_audit_status            , any.missing=T )
 checkmate::assert_integer(  ds$inst4_request_per_month_count , any.missing=T , lower=3, upper=1100 )
 checkmate::assert_factor(   ds$inst4_ticket                  , any.missing=T )
-# checkmate::assert_character(ds$inst4_ticket_type             , any.missing=T , pattern="^.{1,5}$"  )
+checkmate::assert_logical(  ds$inst4_ticket_type_servicenow                 , any.missing=F )
+checkmate::assert_logical(  ds$inst4_ticket_type_freshworks                 , any.missing=F )
+checkmate::assert_logical(  ds$inst4_ticket_type_zendesk                    , any.missing=F )
+checkmate::assert_logical(  ds$inst4_ticket_type_zoho                       , any.missing=F )
+checkmate::assert_logical(  ds$inst4_ticket_type_redcap                     , any.missing=F )
+checkmate::assert_logical(  ds$inst4_ticket_type_jira                       , any.missing=F )
+checkmate::assert_logical(  ds$inst4_ticket_type_os_ticket                  , any.missing=F )
+checkmate::assert_logical(  ds$inst4_ticket_type_other                      , any.missing=F )
 # checkmate::assert_numeric(  ds$inst4_ticket_like             , any.missing=T , lower=1, upper=3    )
 # checkmate::assert_character(ds$inst4_release                 , any.missing=T , pattern="^.{1,3}$"  )
 # checkmate::assert_numeric(  ds$inst4_server_host             , any.missing=T , lower=1, upper=99   )
