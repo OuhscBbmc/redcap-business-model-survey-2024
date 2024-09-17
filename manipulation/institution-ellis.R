@@ -417,8 +417,8 @@ ds <-
   map_to_radio(  "inst4_validation_project", "yes_no_dont_know") |>
   map_to_radio(  "inst4_validation_committee", "yes_no_dont_know") |>
   map_to_radio(  "inst4_validation_staff_level") |>
-  map_to_checkbox(  "inst4_audit_support") |>
-  # map_to_checkbox(  "inst4_audit_status") |>
+  map_to_checkbox("inst4_audit_support") |>
+  map_to_radio(  "inst4_audit_status", "yes_no_dont_know") |>
   # map_to_checkbox(  "inst4_request_per_month_count") |>
   # map_to_checkbox(  "inst4_ticket") |>
   # map_to_checkbox(  "inst4_ticket_type") |>
@@ -595,7 +595,7 @@ checkmate::assert_logical(  ds$inst4_audit_support_it                       , an
 checkmate::assert_logical(  ds$inst4_audit_support_unsure                   , any.missing=F )
 checkmate::assert_logical(  ds$inst4_audit_support_not_me                   , any.missing=F )
 checkmate::assert_logical(  ds$inst4_audit_support_other                    , any.missing=F )
-# checkmate::assert_numeric(  ds$inst4_audit_status            , any.missing=T , lower=0, upper=99   )
+checkmate::assert_factor(  ds$inst4_audit_status            , any.missing=T )
 # checkmate::assert_numeric(  ds$inst4_request_per_month_count , any.missing=T , lower=3, upper=1100 )
 # checkmate::assert_numeric(  ds$inst4_ticket                  , any.missing=T , lower=0, upper=1    )
 # checkmate::assert_character(ds$inst4_ticket_type             , any.missing=T , pattern="^.{1,5}$"  )
