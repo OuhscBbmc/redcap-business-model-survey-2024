@@ -413,7 +413,7 @@ ds <-
   map_to_radio(  "inst4_regulatory_charge") |>
   map_to_radio(  "inst4_validation") |>
   map_to_checkbox("inst4_validation_initial") |>
-  # map_to_checkbox(  "inst4_validation_module") |>
+  map_to_radio(   "inst4_validation_module", "yes_no_dont_know") |>
   # map_to_checkbox(  "inst4_validation_project") |>
   # map_to_checkbox(  "inst4_validation_committee") |>
   # map_to_checkbox(  "inst4_validation_staff_count") |>
@@ -582,7 +582,6 @@ checkmate::assert_logical(  ds$inst4_validation_initial_institution_redcap  , an
 checkmate::assert_logical(  ds$inst4_validation_initial_institution_outside , any.missing=F )
 checkmate::assert_logical(  ds$inst4_validation_initial_other               , any.missing=F )
 
-# checkmate::assert_character(ds$inst4_validation_initial      , any.missing=T , pattern="^.{1,5}$"  )
 # checkmate::assert_numeric(  ds$inst4_validation_module       , any.missing=T , lower=0, upper=1    )
 # checkmate::assert_numeric(  ds$inst4_validation_project      , any.missing=T , lower=0, upper=1    )
 # checkmate::assert_numeric(  ds$inst4_validation_committee    , any.missing=T , lower=0, upper=1    )
