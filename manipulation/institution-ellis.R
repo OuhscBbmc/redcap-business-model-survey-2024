@@ -423,7 +423,7 @@ ds <-
   map_to_checkbox("inst4_ticket_type") |>
   map_to_radio(   "inst4_ticket_like") |>
   map_to_checkbox("inst4_release") |>
-  # map_to_checkbox(  "inst4_server_host") |>
+  map_to_radio(   "inst4_server_host") |>
   # map_to_checkbox(  "inst4_server_manage") |>
   # map_to_checkbox(  "inst4_host_cloud") |>
   # map_to_checkbox(  "inst4_upgrade") |>
@@ -608,7 +608,7 @@ checkmate::assert_logical(  ds$inst4_release_standard                       , an
 checkmate::assert_logical(  ds$inst4_release_lts                            , any.missing=F )
 checkmate::assert_logical(  ds$inst4_release_dont_know                      , any.missing=F )
 
-# checkmate::assert_numeric(  ds$inst4_server_host             , any.missing=T , lower=1, upper=99   )
+checkmate::assert_factor(  ds$inst4_server_host             , any.missing=T )
 # checkmate::assert_character(ds$inst4_server_manage           , any.missing=T , pattern="^.{1,5}$"  )
 # checkmate::assert_numeric(  ds$inst4_host_cloud              , any.missing=T , lower=1, upper=98   )
 # checkmate::assert_numeric(  ds$inst4_upgrade                 , any.missing=T , lower=1, upper=98   )
