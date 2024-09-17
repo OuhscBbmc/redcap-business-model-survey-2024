@@ -114,6 +114,12 @@ Institution 3 (Instrument)
 ```{r marginals-inst3, echo=echo_chunks, message=message_chunks}
 ```
 
+Institution 4 (Instrument)
+---------------------------------------------------------------------------
+
+```{r marginals-inst4, echo=echo_chunks, message=message_chunks}
+```
+
 
 Scatterplots
 ===========================================================================
