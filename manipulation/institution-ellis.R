@@ -276,7 +276,7 @@ ds <-
     # inst4_host_cloud_other                                    = `host_cloud_other`,
     inst4_upgrade                                             = `upgrade`,
     # inst4_upgrade_oth                                         = `upgrade_oth`,
-    inst4_update_barriers                                     = `update_barriers`,
+    inst4_update_barrier                                      = `update_barriers`,
     inst4_complete                                            = `institutional_questionnaire4_complete`,
   ) |>
   # dplyr::mutate(
@@ -427,7 +427,7 @@ ds <-
   map_to_checkbox("inst4_server_manage") |>
   map_to_radio(   "inst4_host_cloud") |>
   map_to_radio(   "inst4_upgrade") |>
-  # map_to_checkbox(  "inst4_update_barriers") |>
+  map_to_checkbox("inst4_update_barrier") |>
   dplyr::mutate(
     inst4_complete                = REDCapR::constant_to_form_completion(inst4_complete),
   ) |>
@@ -617,7 +617,12 @@ checkmate::assert_logical(  ds$inst4_server_manage_other                    , an
 checkmate::assert_logical(  ds$inst4_server_manage_dont_know                , any.missing=F )
 checkmate::assert_factor(   ds$inst4_host_cloud              , any.missing=T   )
 checkmate::assert_factor(   ds$inst4_upgrade                 , any.missing=T    )
-# checkmate::assert_character(ds$inst4_update_barriers         , any.missing=T , pattern="^.{1,6}$"  )
+checkmate::assert_logical(  ds$inst4_update_barrier_none                    , any.missing=F                             )
+checkmate::assert_logical(  ds$inst4_update_barrier_code_mods               , any.missing=F                             )
+checkmate::assert_logical(  ds$inst4_update_barrier_it_dept                 , any.missing=F                             )
+checkmate::assert_logical(  ds$inst4_update_barrier_part_11                 , any.missing=F                             )
+checkmate::assert_logical(  ds$inst4_update_barrier_general                 , any.missing=F                             )
+checkmate::assert_logical(  ds$inst4_update_barrier_other                   , any.missing=F                             )
 checkmate::assert_factor(   ds$inst4_complete                , any.missing=F                       )
 
 # ---- specify-columns-to-upload -----------------------------------------------
