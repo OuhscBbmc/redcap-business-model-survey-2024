@@ -123,3 +123,8 @@ inst4_server_manage,checkbox,2,"it",2,"Information Systems/Technology manages th
 inst4_server_manage,checkbox,3,"host",3,"A cloud hosting service manages them"
 inst4_server_manage,checkbox,98,"other",98,"Other {server_manage_other}"
 inst4_server_manage,checkbox,99,"dont_know",99,"I don't know"
+inst4_host_cloud,radio,1,"aws",1,"AWS"
+inst4_host_cloud,radio,2,"azure",2,"Azure"
+inst4_host_cloud,radio,3,"google",3,"Google Cloud Platform (GCP)"
+inst4_host_cloud,radio,4,"internal",4,"Internal Platform"
+inst4_host_cloud,radio,98,"other",98,"Other {host_cloud_other}"

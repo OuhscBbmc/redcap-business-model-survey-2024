@@ -424,8 +424,8 @@ ds <-
   map_to_radio(   "inst4_ticket_like") |>
   map_to_checkbox("inst4_release") |>
   map_to_radio(   "inst4_server_host") |>
-  map_to_checkbox(  "inst4_server_manage") |>
-  # map_to_checkbox(  "inst4_host_cloud") |>
+  map_to_checkbox("inst4_server_manage") |>
+  map_to_radio(   "inst4_host_cloud") |>
   # map_to_checkbox(  "inst4_upgrade") |>
   # map_to_checkbox(  "inst4_update_barriers") |>
   dplyr::mutate(
@@ -615,7 +615,7 @@ checkmate::assert_logical(  ds$inst4_server_manage_it                       , an
 checkmate::assert_logical(  ds$inst4_server_manage_host                     , any.missing=F )
 checkmate::assert_logical(  ds$inst4_server_manage_other                    , any.missing=F )
 checkmate::assert_logical(  ds$inst4_server_manage_dont_know                , any.missing=F )
-# checkmate::assert_numeric(  ds$inst4_host_cloud              , any.missing=T , lower=1, upper=98   )
+checkmate::assert_factor(   ds$inst4_host_cloud              , any.missing=T   )
 # checkmate::assert_numeric(  ds$inst4_upgrade                 , any.missing=T , lower=1, upper=98   )
 # checkmate::assert_character(ds$inst4_update_barriers         , any.missing=T , pattern="^.{1,6}$"  )
 # checkmate::assert_factor(   ds$inst4_complete                , any.missing=F                       )
