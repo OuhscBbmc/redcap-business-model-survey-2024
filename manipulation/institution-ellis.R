@@ -406,7 +406,7 @@ ds <-
   map_to_radio(  "inst4_charge_success") |>
   map_to_radio(  "inst4_manage_satisfied") |>
   map_to_checkbox("inst4_regulatory") |>
-  # map_to_checkbox(  "inst4_regulatory_charge") |>
+  map_to_radio(  "inst4_regulatory_charge") |>
   # map_to_checkbox(  "inst4_validation") |>
   # map_to_checkbox(  "inst4_validation_initial") |>
   # map_to_checkbox(  "inst4_validation_module") |>
@@ -561,16 +561,16 @@ checkmate::assert_factor(   ds$inst4_charge_effort           , any.missing=T )
 checkmate::assert_factor(   ds$inst4_charge_success          , any.missing=T )
 checkmate::assert_factor(   ds$inst4_manage_satisfied        , any.missing=T )
 
-checkmate::assert_logical(  ds$inst4_regulatory_none                  , any.missing=F                             )
-checkmate::assert_logical(  ds$inst4_regulatory_hipaa                 , any.missing=F                             )
-checkmate::assert_logical(  ds$inst4_regulatory_cfr_11                , any.missing=F                             )
-checkmate::assert_logical(  ds$inst4_regulatory_gcp                   , any.missing=F                             )
-checkmate::assert_logical(  ds$inst4_regulatory_fisma_high            , any.missing=F                             )
-checkmate::assert_logical(  ds$inst4_regulatory_fisma_medium          , any.missing=F                             )
-checkmate::assert_logical(  ds$inst4_regulatory_fisma_low             , any.missing=F                             )
-checkmate::assert_logical(  ds$inst4_regulatory_gdpr                  , any.missing=F                             )
-checkmate::assert_logical(  ds$inst4_regulatory_other                 , any.missing=F                             )
-# checkmate::assert_integer(  ds$inst4_regulatory_charge       , any.missing=T , lower=1, upper=99   )
+checkmate::assert_logical(  ds$inst4_regulatory_none          , any.missing=F )
+checkmate::assert_logical(  ds$inst4_regulatory_hipaa         , any.missing=F )
+checkmate::assert_logical(  ds$inst4_regulatory_cfr_11        , any.missing=F )
+checkmate::assert_logical(  ds$inst4_regulatory_gcp           , any.missing=F )
+checkmate::assert_logical(  ds$inst4_regulatory_fisma_high    , any.missing=F )
+checkmate::assert_logical(  ds$inst4_regulatory_fisma_medium  , any.missing=F )
+checkmate::assert_logical(  ds$inst4_regulatory_fisma_low     , any.missing=F )
+checkmate::assert_logical(  ds$inst4_regulatory_gdpr          , any.missing=F )
+checkmate::assert_logical(  ds$inst4_regulatory_other         , any.missing=F )
+checkmate::assert_factor(   ds$inst4_regulatory_charge        , any.missing=T )
 # checkmate::assert_integer(  ds$inst4_validation              , any.missing=T , lower=0, upper=2    )
 # checkmate::assert_character(ds$inst4_validation_initial      , any.missing=T , pattern="^.{1,5}$"  )
 # checkmate::assert_numeric(  ds$inst4_validation_module       , any.missing=T , lower=0, upper=1    )
