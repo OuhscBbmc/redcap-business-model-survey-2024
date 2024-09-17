@@ -136,7 +136,7 @@ col_types <- readr::cols_only(
   `ticket`                                  = readr::col_integer(),
   `ticket_type`                             = readr::col_character(),
   # `ticket_type_other`                       = readr::col_character(),
-  `likesetup_ticketing`                     = readr::col_double(),
+  `likesetup_ticketing`                     = readr::col_integer(),
   # `whyuse_ticketing`                        = readr::col_character(),
   # `bestparts_ticketing`                     = readr::col_character(),
   # `improvements_ticketing`                  = readr::col_character(),
@@ -159,7 +159,7 @@ col_types <- readr::cols_only(
 # ---- load-data ---------------------------------------------------------------
 # Read the CSVs
 ds <- readr::read_csv(config$path_institution_raw  , col_types=col_types)
-# readr::problems(ds)
+readr::problems(ds)
 rm(col_types)
 
 
@@ -421,7 +421,7 @@ ds <-
   map_to_radio(  "inst4_audit_status", "yes_no_dont_know") |>
   map_to_radio(   "inst4_ticket", "yes_no_dont_know") |>
   map_to_checkbox("inst4_ticket_type") |>
-  # map_to_checkbox(  "inst4_ticket_like") |>
+  map_to_radio(   "inst4_ticket_like") |>
   # map_to_checkbox(  "inst4_version_preclean") |>
   # map_to_checkbox(  "inst4_release") |>
   # map_to_checkbox(  "inst4_server_host") |>
@@ -604,7 +604,7 @@ checkmate::assert_logical(  ds$inst4_ticket_type_redcap                     , an
 checkmate::assert_logical(  ds$inst4_ticket_type_jira                       , any.missing=F )
 checkmate::assert_logical(  ds$inst4_ticket_type_os_ticket                  , any.missing=F )
 checkmate::assert_logical(  ds$inst4_ticket_type_other                      , any.missing=F )
-# checkmate::assert_numeric(  ds$inst4_ticket_like             , any.missing=T , lower=1, upper=3    )
+checkmate::assert_factor(   ds$inst4_ticket_like             , any.missing=T     )
 # checkmate::assert_character(ds$inst4_release                 , any.missing=T , pattern="^.{1,3}$"  )
 # checkmate::assert_numeric(  ds$inst4_server_host             , any.missing=T , lower=1, upper=99   )
 # checkmate::assert_character(ds$inst4_server_manage           , any.missing=T , pattern="^.{1,5}$"  )
