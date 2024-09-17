@@ -104,37 +104,16 @@ map_to_checkbox <- function( # .variable = "inst1_funding"
 
   by <- rlang::set_names(x = "value", nm = .variable)
 
-  # d_possible <-
-  #   tidyr::expand_grid(
-  #     institution_index = d$institution_index,
-  #     label             = levels(d_lu$label)
-  #   )
-
-  # browser()
   d_wide <-
     d |>
     dplyr::select(
       institution_index,
       !!.variable,
     ) |>
-    # tidyr::drop_na(inst4_validation_initial) |>
     tidyr::separate_longer_delim(cols = !!.variable, delim = ",") |>
     # tidyr::drop_na(!!.variable) |> # Drop if they didn't check any box
     dplyr::left_join(d_lu, by = by) |>
     dplyr::select(-!!.variable) |>
-    # dplyr::mutate(
-    #   value = TRUE,
-    # ) |>
-    # dplyr::full_join(
-    #   d_possible,
-    #   by = c("institution_index", "label")
-    # ) |>
-    # dplyr::arrange(institution_index, label) |>
-    # dplyr::mutate(
-    #   value = dplyr::coalesce(value, FALSE)
-    # ) |>
-    # View()
-    # tidyr::crossing(institution_index, label)
     tidyr::pivot_wider(
       id_cols     = "institution_index",
       names_from  = label,
@@ -142,9 +121,7 @@ map_to_checkbox <- function( # .variable = "inst1_funding"
       values_from = label, # Dummy argument that's not really used.
       values_fn   = \(x) {TRUE},
       values_fill = FALSE
-    ) #|>
-    # dplyr::select(!`NA`) # Drop the spurious `NA` column, that was created when someone didn't check any box.
-  # View(d_wide)
+    )
 
   d |>
     dplyr::left_join(d_wide, by = "institution_index") |>
