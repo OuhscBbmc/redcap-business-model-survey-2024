@@ -104,6 +104,7 @@ map_to_checkbox <- function( # .variable = "inst1_funding"
 
   by <- rlang::set_names(x = "value", nm = .variable)
 
+  # browser()
   d_wide <-
     d |>
     dplyr::select(
@@ -121,7 +122,8 @@ map_to_checkbox <- function( # .variable = "inst1_funding"
       values_from = label, # Dummy argument that's not really used.
       values_fn   = \(x) {TRUE},
       values_fill = FALSE
-    )
+    ) |>
+    dplyr::select(-`NA`)
 
   d |>
     dplyr::left_join(d_wide, by = "institution_index") |>
