@@ -426,7 +426,7 @@ ds <-
   map_to_radio(   "inst4_server_host") |>
   map_to_checkbox("inst4_server_manage") |>
   map_to_radio(   "inst4_host_cloud") |>
-  # map_to_checkbox(  "inst4_upgrade") |>
+  map_to_radio(   "inst4_upgrade") |>
   # map_to_checkbox(  "inst4_update_barriers") |>
   dplyr::mutate(
     inst4_complete                = REDCapR::constant_to_form_completion(inst4_complete),
@@ -604,23 +604,21 @@ checkmate::assert_logical(  ds$inst4_ticket_type_jira                       , an
 checkmate::assert_logical(  ds$inst4_ticket_type_os_ticket                  , any.missing=F )
 checkmate::assert_logical(  ds$inst4_ticket_type_other                      , any.missing=F )
 checkmate::assert_factor(   ds$inst4_ticket_like             , any.missing=T     )
+checkmate::assert_character(ds$inst4_version                 , any.missing=T , pattern="^.{4,5}$"  )
+checkmate::assert_character(ds$inst4_version_major           , any.missing=T , pattern="^.{2,2}$"  )
 checkmate::assert_logical(  ds$inst4_release_standard                       , any.missing=F )
 checkmate::assert_logical(  ds$inst4_release_lts                            , any.missing=F )
 checkmate::assert_logical(  ds$inst4_release_dont_know                      , any.missing=F )
-
-checkmate::assert_factor(  ds$inst4_server_host             , any.missing=T )
-
+checkmate::assert_factor(   ds$inst4_server_host             , any.missing=T )
 checkmate::assert_logical(  ds$inst4_server_manage_redcap                   , any.missing=F )
 checkmate::assert_logical(  ds$inst4_server_manage_it                       , any.missing=F )
 checkmate::assert_logical(  ds$inst4_server_manage_host                     , any.missing=F )
 checkmate::assert_logical(  ds$inst4_server_manage_other                    , any.missing=F )
 checkmate::assert_logical(  ds$inst4_server_manage_dont_know                , any.missing=F )
 checkmate::assert_factor(   ds$inst4_host_cloud              , any.missing=T   )
-# checkmate::assert_numeric(  ds$inst4_upgrade                 , any.missing=T , lower=1, upper=98   )
+checkmate::assert_factor(   ds$inst4_upgrade                 , any.missing=T    )
 # checkmate::assert_character(ds$inst4_update_barriers         , any.missing=T , pattern="^.{1,6}$"  )
-# checkmate::assert_factor(   ds$inst4_complete                , any.missing=F                       )
-# checkmate::assert_character(ds$inst4_version                 , any.missing=T , pattern="^.{4,5}$"  )
-# checkmate::assert_character(ds$inst4_version_major           , any.missing=T , pattern="^.{2,2}$"  )
+checkmate::assert_factor(   ds$inst4_complete                , any.missing=F                       )
 
 # ---- specify-columns-to-upload -----------------------------------------------
 # Print colnames that `dplyr::select()`  should contain below:
