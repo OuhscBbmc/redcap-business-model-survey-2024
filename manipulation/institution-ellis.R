@@ -133,7 +133,7 @@ col_types <- readr::cols_only(
   `audit_support`                           = readr::col_character(),
   `audit_status`                            = readr::col_double(),
   `monthly_requests`                        = readr::col_integer(),
-  `ticket`                                  = readr::col_double(),
+  `ticket`                                  = readr::col_integer(),
   `ticket_type`                             = readr::col_character(),
   # `ticket_type_other`                       = readr::col_character(),
   `likesetup_ticketing`                     = readr::col_double(),
@@ -419,7 +419,7 @@ ds <-
   map_to_radio(  "inst4_validation_staff_level") |>
   map_to_checkbox("inst4_audit_support") |>
   map_to_radio(  "inst4_audit_status", "yes_no_dont_know") |>
-  # map_to_checkbox(  "inst4_ticket") |>
+  map_to_radio(   "inst4_ticket", "yes_no_dont_know") |>
   # map_to_checkbox(  "inst4_ticket_type") |>
   # map_to_checkbox(  "inst4_ticket_like") |>
   # map_to_checkbox(  "inst4_version_preclean") |>
@@ -596,7 +596,7 @@ checkmate::assert_logical(  ds$inst4_audit_support_not_me                   , an
 checkmate::assert_logical(  ds$inst4_audit_support_other                    , any.missing=F )
 checkmate::assert_factor(   ds$inst4_audit_status            , any.missing=T )
 checkmate::assert_integer(  ds$inst4_request_per_month_count , any.missing=T , lower=3, upper=1100 )
-# checkmate::assert_numeric(  ds$inst4_ticket                  , any.missing=T , lower=0, upper=1    )
+checkmate::assert_factor(   ds$inst4_ticket                  , any.missing=T )
 # checkmate::assert_character(ds$inst4_ticket_type             , any.missing=T , pattern="^.{1,5}$"  )
 # checkmate::assert_numeric(  ds$inst4_ticket_like             , any.missing=T , lower=1, upper=3    )
 # checkmate::assert_character(ds$inst4_release                 , any.missing=T , pattern="^.{1,3}$"  )
