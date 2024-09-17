@@ -89,3 +89,6 @@ inst4_validation_initial,checkbox,1,"contractor",1,"Hired contractors / consulta
 inst4_validation_initial,checkbox,2,"institution_redcap",2,"REDCap Program staff"
 inst4_validation_initial,checkbox,3,"institution_outside",3,"Other institutional staff (non-REDCap staff)"
 inst4_validation_initial,checkbox,98,"other",98,"Other {who_val_other}"
+inst4_validation_staff_level,radio,1,"Overstaffed",1,"Overstaffed"
+inst4_validation_staff_level,radio,2,"Appropriately staffed",2,"Appropriately staffed"
+inst4_validation_staff_level,radio,3,"Understaffed",3,"Understaffed"

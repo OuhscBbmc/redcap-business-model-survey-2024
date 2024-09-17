@@ -129,7 +129,7 @@ col_types <- readr::cols_only(
   `project_val`                             = readr::col_double(),
   `rsvc`                                    = readr::col_double(),
   `staff_val`                               = readr::col_integer(),
-  `sys_val_effort`                          = readr::col_double(),
+  `sys_val_effort`                          = readr::col_integer(),
   `audit_support`                           = readr::col_character(),
   `audit_status`                            = readr::col_double(),
   `monthly_requests`                        = readr::col_double(),
@@ -416,7 +416,7 @@ ds <-
   map_to_radio(   "inst4_validation_module", "yes_no_dont_know") |>
   map_to_radio(  "inst4_validation_project", "yes_no_dont_know") |>
   map_to_radio(  "inst4_validation_committee", "yes_no_dont_know") |>
-  # map_to_checkbox(  "inst4_validation_staff_level") |>
+  map_to_radio(  "inst4_validation_staff_level") |>
   # map_to_checkbox(  "inst4_audit_support") |>
   # map_to_checkbox(  "inst4_audit_status") |>
   # map_to_checkbox(  "inst4_request_per_month_count") |>
@@ -585,7 +585,7 @@ checkmate::assert_factor(  ds$inst4_validation_module       , any.missing=T )
 checkmate::assert_factor(  ds$inst4_validation_project      , any.missing=T )
 checkmate::assert_factor(  ds$inst4_validation_committee    , any.missing=T )
 checkmate::assert_integer( ds$inst4_validation_staff_count  , any.missing=T , lower=1, upper=8    )
-# checkmate::assert_numeric(  ds$inst4_validation_staff_level  , any.missing=T , lower=1, upper=3    )
+checkmate::assert_factor(  ds$inst4_validation_staff_level  , any.missing=T )
 # checkmate::assert_character(ds$inst4_audit_support           , any.missing=T , pattern="^.{1,9}$"  )
 # checkmate::assert_numeric(  ds$inst4_audit_status            , any.missing=T , lower=0, upper=99   )
 # checkmate::assert_numeric(  ds$inst4_request_per_month_count , any.missing=T , lower=3, upper=1100 )
