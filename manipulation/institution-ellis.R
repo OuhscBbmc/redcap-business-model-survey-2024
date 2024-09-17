@@ -383,6 +383,9 @@ ds <-
 
 # ---- groom-institution-4 -----------------------------------------------------
 warning("inst4 instrument hasn't been ingested yet.")
+# ds |>
+#   map_to_checkbox(  "inst4_validation_initial")
+
 ds <-
   ds |>
   dplyr::mutate(
@@ -408,7 +411,7 @@ ds <-
   map_to_checkbox("inst4_regulatory") |>
   map_to_radio(  "inst4_regulatory_charge") |>
   map_to_radio(  "inst4_validation") |>
-  # map_to_checkbox(  "inst4_validation_initial") |>
+  map_to_checkbox(  "inst4_validation_initial") |>
   # map_to_checkbox(  "inst4_validation_module") |>
   # map_to_checkbox(  "inst4_validation_project") |>
   # map_to_checkbox(  "inst4_validation_committee") |>
@@ -572,6 +575,11 @@ checkmate::assert_logical(  ds$inst4_regulatory_gdpr          , any.missing=F )
 checkmate::assert_logical(  ds$inst4_regulatory_other         , any.missing=F )
 checkmate::assert_factor(   ds$inst4_regulatory_charge        , any.missing=T )
 checkmate::assert_factor(   ds$inst4_validation               , any.missing=T )
+
+checkmate::assert_logical(  ds$inst4_validation_initial_institution_redcap  , any.missing=F                             )
+checkmate::assert_logical(  ds$inst4_validation_initial_contractor          , any.missing=F                             )
+checkmate::assert_logical(  ds$inst4_validation_initial_institution_outside , any.missing=F                             )
+
 # checkmate::assert_character(ds$inst4_validation_initial      , any.missing=T , pattern="^.{1,5}$"  )
 # checkmate::assert_numeric(  ds$inst4_validation_module       , any.missing=T , lower=0, upper=1    )
 # checkmate::assert_numeric(  ds$inst4_validation_project      , any.missing=T , lower=0, upper=1    )

@@ -93,13 +93,19 @@ map_to_checkbox <- function( # .variable = "inst1_funding"
     dplyr::mutate(
       label = paste0(category, "_", label),
     ) |>
+    # dplyr::arrange(display_order) |>
     dplyr::select(
       value,
       label,
-    )
+    ) #|>
+    # dplyr::mutate(
+    #   label = factor(label)
+    # )
 
   by <- rlang::set_names(x = "value", nm = .variable)
 
+  # d_possible <-
+  #   tidyr::expand_grid(d$institution_index)
   # browser()
   d_wide <-
     d |>
@@ -107,10 +113,15 @@ map_to_checkbox <- function( # .variable = "inst1_funding"
       institution_index,
       !!.variable,
     ) |>
+    # tidyr::drop_na(inst4_validation_initial) |>
     tidyr::separate_longer_delim(cols = !!.variable, delim = ",") |>
     # tidyr::drop_na(!!.variable) |> # Drop if they didn't check any box
     dplyr::left_join(d_lu, by = by) |>
     dplyr::select(-!!.variable) |>
+    # dplyr::mutate(
+    #   value = TRUE,
+    # ) |>
+    # tidyr::crossing(institution_index, label)
     tidyr::pivot_wider(
       id_cols     = "institution_index",
       names_from  = label,
