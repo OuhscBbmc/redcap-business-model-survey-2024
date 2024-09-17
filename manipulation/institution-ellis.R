@@ -380,13 +380,7 @@ ds <-
   map_to_radio("inst3_train_other_charge"  , .category = "always_sometimes_never")# |>
   # dplyr::select(tidyselect::starts_with("inst3_"))
 
-
 # ---- groom-institution-4 -----------------------------------------------------
-warning("inst4 instrument hasn't been ingested yet.")
-# ds |>
-#   map_to_checkbox(  "inst4_validation_initial") |>
-#   dplyr::select(tidyselect::starts_with("inst4_validation_initial"))
-
 ds <-
   ds |>
   dplyr::mutate(
@@ -722,6 +716,82 @@ ds_slim <-
     inst3_train_other_charge,
     inst3_complete,
 
+    inst4_charge_type_effort_hourly,
+    inst4_charge_type_effort_fte,
+    inst4_charge_type_service,
+    inst4_charge_type_subscription,
+    inst4_charge_type_other,
+    inst4_charge_reason_cost_recovery,
+    inst4_charge_reason_demand_management,
+    inst4_charge_reason_additional_support,
+    inst4_charge_reason_advanced_services,
+    inst4_charge_reason_additional_fte,
+    inst4_charge_reason_support_specific,
+    inst4_charge_reason_other,
+    inst4_charge_staff_count,
+    inst4_charge_effort,
+    inst4_charge_success,
+    inst4_manage_satisfied,
+    inst4_regulatory_none,
+    inst4_regulatory_hipaa,
+    inst4_regulatory_cfr_11,
+    inst4_regulatory_gcp,
+    inst4_regulatory_fisma_high,
+    inst4_regulatory_fisma_medium,
+    inst4_regulatory_fisma_low,
+    inst4_regulatory_gdpr,
+    inst4_regulatory_other,
+    inst4_regulatory_charge,
+    inst4_validation,
+    inst4_validation_initial_contractor,
+    inst4_validation_initial_institution_redcap,
+    inst4_validation_initial_institution_outside,
+    inst4_validation_initial_other,
+    inst4_validation_module,
+    inst4_validation_project,
+    inst4_validation_committee,
+    inst4_validation_staff_count,
+    inst4_validation_staff_level,
+    inst4_audit_support_redcap_admins,
+    inst4_audit_support_research_compliance,
+    inst4_audit_support_cto,
+    inst4_audit_support_privacy_office,
+    inst4_audit_support_it,
+    inst4_audit_support_unsure,
+    inst4_audit_support_not_me,
+    inst4_audit_support_other,
+    inst4_audit_status,
+    inst4_request_per_month_count,
+    inst4_ticket,
+    inst4_ticket_type_servicenow,
+    inst4_ticket_type_freshworks,
+    inst4_ticket_type_zendesk,
+    inst4_ticket_type_zoho,
+    inst4_ticket_type_redcap,
+    inst4_ticket_type_jira,
+    inst4_ticket_type_os_ticket,
+    inst4_ticket_type_other,
+    inst4_ticket_like,
+    inst4_version,
+    inst4_version_major,
+    inst4_release_standard,
+    inst4_release_lts,
+    inst4_release_dont_know,
+    inst4_server_host,
+    inst4_server_manage_redcap,
+    inst4_server_manage_it,
+    inst4_server_manage_host,
+    inst4_server_manage_other,
+    inst4_server_manage_dont_know,
+    inst4_host_cloud,
+    inst4_upgrade,
+    inst4_update_barrier_none,
+    inst4_update_barrier_code_mods,
+    inst4_update_barrier_it_dept,
+    inst4_update_barrier_part_11,
+    inst4_update_barrier_general,
+    inst4_update_barrier_other,
+    inst4_complete,
   )
 
 ds_slim
