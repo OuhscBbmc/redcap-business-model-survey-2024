@@ -93,6 +93,8 @@ Scatterplots
 ```
 Warning: Removed 10 rows containing non-finite outside the scale range
 (`stat_smooth()`).
+Removed 10 rows containing non-finite outside the scale range
+(`stat_smooth()`).
 ```
 
 ```
@@ -101,6 +103,11 @@ Warning: Removed 10 rows containing missing values or values outside the scale r
 ```
 
 ![](figure-png/scatterplots-1.png)<!-- -->
+
+```
+Warning: Removed 10 rows containing non-finite outside the scale range
+(`stat_smooth()`).
+```
 
 ```
 Warning: Removed 10 rows containing non-finite outside the scale range
@@ -125,11 +132,77 @@ Warning: Removed 8 rows containing non-finite outside the scale range
 ```
 
 ```
+Warning: Removed 8 rows containing non-finite outside the scale range
+(`stat_smooth()`).
+```
+
+```
 Warning: Removed 8 rows containing missing values or values outside the scale range
 (`geom_point()`).
 ```
 
 ![](figure-png/scatterplots-3.png)<!-- -->
+
+```
+Warning in scale_y_log10(breaks = scales::trans_breaks("log10", function(x)
+10^x), : log-10 transformation introduced infinite values.
+```
+
+```
+Warning in scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x), : log-10 transformation introduced infinite values.
+log-10 transformation introduced infinite values.
+```
+
+```
+Warning: Removed 9 rows containing non-finite outside the scale range (`stat_smooth()`).
+Removed 9 rows containing non-finite outside the scale range (`stat_smooth()`).
+```
+
+```
+Warning: Removed 8 rows containing missing values or values outside the scale range
+(`geom_point()`).
+```
+
+![](figure-png/scatterplots-4.png)<!-- -->
+
+```
+Warning: Removed 10 rows containing non-finite outside the scale range
+(`stat_smooth()`).
+```
+
+```
+Warning: Removed 10 rows containing non-finite outside the scale range
+(`stat_smooth()`).
+```
+
+```
+Warning: Removed 10 rows containing missing values or values outside the scale range
+(`geom_point()`).
+```
+
+![](figure-png/scatterplots-5.png)<!-- -->
+
+```
+Warning: Removed 12 rows containing non-finite outside the scale range
+(`stat_smooth()`).
+```
+
+```
+Warning: Removed 12 rows containing non-finite outside the scale range
+(`stat_smooth()`).
+```
+
+```
+Warning: Removed 12 rows containing missing values or values outside the scale range
+(`geom_point()`).
+```
+
+![](figure-png/scatterplots-6.png)<!-- -->
+
+```
+Warning: Removed 7 rows containing non-finite outside the scale range
+(`stat_smooth()`).
+```
 
 ```
 Warning: Removed 7 rows containing non-finite outside the scale range
@@ -141,7 +214,12 @@ Warning: Removed 7 rows containing missing values or values outside the scale ra
 (`geom_point()`).
 ```
 
-![](figure-png/scatterplots-4.png)<!-- -->
+![](figure-png/scatterplots-7.png)<!-- -->
+
+```
+Warning: Removed 11 rows containing non-finite outside the scale range
+(`stat_smooth()`).
+```
 
 ```
 Warning: Removed 11 rows containing non-finite outside the scale range
@@ -153,7 +231,7 @@ Warning: Removed 11 rows containing missing values or values outside the scale r
 (`geom_point()`).
 ```
 
-![](figure-png/scatterplots-5.png)<!-- -->
+![](figure-png/scatterplots-8.png)<!-- -->
 
 ```
 Warning in scale_y_log10(breaks = scales::trans_breaks("log10", function(x)
@@ -161,12 +239,14 @@ Warning in scale_y_log10(breaks = scales::trans_breaks("log10", function(x)
 ```
 
 ```
-Warning in scale_y_log10(breaks = scales::trans_breaks("log10", function(x)
-10^x), : log-10 transformation introduced infinite values.
+Warning in scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x), : log-10 transformation introduced infinite values.
+log-10 transformation introduced infinite values.
 ```
 
 ```
 Warning: Removed 23 rows containing non-finite outside the scale range
+(`stat_smooth()`).
+Removed 23 rows containing non-finite outside the scale range
 (`stat_smooth()`).
 ```
 
@@ -175,7 +255,7 @@ Warning: Removed 16 rows containing missing values or values outside the scale r
 (`geom_point()`).
 ```
 
-![](figure-png/scatterplots-6.png)<!-- -->
+![](figure-png/scatterplots-9.png)<!-- -->
 
 
 Correlation Matrixes
@@ -300,4 +380,4 @@ For the sake of documentation and reproducibility, the current report was render
 
 
 
-Report rendered by wibea at 2024-09-17, 09:06 -0500 in 17 seconds.
+Report rendered by wibea at 2024-09-17, 20:50 -0500 in 19 seconds.

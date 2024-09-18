@@ -205,6 +205,7 @@ TabularManifest::histogram_discrete(  ds, "inst4_complete"                      
 g1 <-
   ds |>
   ggplot(aes(x=inst2_user_count, y=inst2_project_count, color=inst1_country_usa)) +
+  geom_smooth(aes(color = NULL), method="loess", span=2, se = FALSE, color = "gray50", linetype = "88") +
   geom_smooth(method="loess", span=2, se = FALSE) +
   geom_point(shape=1) +
   annotation_logticks(sides = "lb") +
@@ -225,6 +226,9 @@ g1 %+% aes(color=inst2_authenticate)
 
 
 g1 %+% aes(y = inst1_admin_total)
+g1 %+% aes(y = inst1_admin_total_fte)
+g1 %+% aes(y = inst1_admin_user)
+g1 %+% aes(y = inst1_admin_user_fte)
 
 g1 %+% aes(y = inst2_instance_count)
 g1 %+% aes(y = inst2_log_count_recent)
